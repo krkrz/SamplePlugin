@@ -9,8 +9,8 @@
 
 //---------------------------------------------------------------------------
 /*
-	Ø‚è‘Ö‚¦Œ³AØ‚è‘Ö‚¦æ‚Ì‰æ‘œ‚ğƒNƒ‹ƒNƒ‹‰ñ‚·Œn‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“—p‚ÌŠî’êƒNƒ‰ƒX
-	‚ÌÀ‘•
+	åˆ‡ã‚Šæ›¿ãˆå…ƒã€åˆ‡ã‚Šæ›¿ãˆå…ˆã®ç”»åƒã‚’ã‚¯ãƒ«ã‚¯ãƒ«å›ã™ç³»ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”¨ã®åŸºåº•ã‚¯ãƒ©ã‚¹
+	ã®å®Ÿè£…
 */
 //---------------------------------------------------------------------------
 tTVPBaseRotateTransHandler::tTVPBaseRotateTransHandler(tjs_uint64 time,
@@ -34,44 +34,44 @@ tTVPBaseRotateTransHandler::~tTVPBaseRotateTransHandler()
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::StartProcess(tjs_uint64 tick)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚É‚Â‚«A‚Ü‚¸Å‰‚É StartProcess ‚ªŒÄ‚Î‚ê‚é
-	// ‚»‚Ì‚ ‚Æ Process ‚ª•¡”‰ñŒÄ‚Î‚ê‚é ( —Ìˆæ‚ğ•ªŠ„ˆ—‚µ‚Ä‚¢‚éê‡ )
-	// ÅŒã‚É EndProcess ‚ªŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãã€ã¾ãšæœ€åˆã« StartProcess ãŒå‘¼ã°ã‚Œã‚‹
+	// ãã®ã‚ã¨ Process ãŒè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹ ( é ˜åŸŸã‚’åˆ†å‰²å‡¦ç†ã—ã¦ã„ã‚‹å ´åˆ )
+	// æœ€å¾Œã« EndProcess ãŒå‘¼ã°ã‚Œã‚‹
 
 	if(First)
 	{
-		// Å‰‚ÌÀs
+		// æœ€åˆã®å®Ÿè¡Œ
 		First = false;
 		StartTick = tick;
 	}
 
-	// ‰æ‘œ‰‰Z‚É•K—v‚Èƒpƒ‰ƒ[ƒ^‚ğŒvZ
+	// ç”»åƒæ¼”ç®—ã«å¿…è¦ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨ˆç®—
 	CurTime = (tick - StartTick);
 	if(CurTime > Time) CurTime = Time;
 
 
-	// ƒf[ƒ^‚ğƒNƒŠƒA
+	// ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¯ãƒªã‚¢
 	for(tjs_int i = 0; i < Height; i++)
 	{
-		// ”wŒi‚ÅƒNƒŠƒA
+		// èƒŒæ™¯ã§ã‚¯ãƒªã‚¢
 		DrawData[i].count = 1;
 		DrawData[i].region[0].left = 0;
 		DrawData[i].region[0].right = Width;
-		DrawData[i].region[0].type = 0; // 0 = ”wŒi
+		DrawData[i].region[0].type = 0; // 0 = èƒŒæ™¯
 	}
 
-	CalcPosition(); // ‰ºˆÊƒNƒ‰ƒX‚Ì CalcPosition ƒƒ\ƒbƒh‚ğŒÄ‚Ô
+	CalcPosition(); // ä¸‹ä½ã‚¯ãƒ©ã‚¹ã® CalcPosition ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶
 
 	return TJS_S_TRUE;
 }
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::EndProcess()
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ•ª‚ªI‚í‚é‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›åˆ†ãŒçµ‚ã‚ã‚‹ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	if(CurTime == Time) return TJS_S_FALSE; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“I—¹
+	if(CurTime == Time) return TJS_S_FALSE; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³çµ‚äº†
 
 	return TJS_S_TRUE;
 }
@@ -79,16 +79,16 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::EndProcess()
 tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 			tTVPDivisibleData *data)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌŠe—Ìˆæ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
-	// ‹g—¢‹g—¢‚Í‰æ–Ê‚ğXV‚·‚é‚Æ‚«‚É‚¢‚­‚Â‚©‚Ì—Ìˆæ‚É•ªŠ„‚µ‚È‚ª‚çˆ—‚ğs‚¤‚Ì‚Å
-	// ‚±‚Ìƒƒ\ƒbƒh‚Í’ÊíA‰æ–ÊXVˆê‰ñ‚É‚Â‚«•¡”‰ñŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®å„é ˜åŸŸã”ã¨ã«å‘¼ã°ã‚Œã‚‹
+	// å‰é‡Œå‰é‡Œã¯ç”»é¢ã‚’æ›´æ–°ã™ã‚‹ã¨ãã«ã„ãã¤ã‹ã®é ˜åŸŸã«åˆ†å‰²ã—ãªãŒã‚‰å‡¦ç†ã‚’è¡Œã†ã®ã§
+	// ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯é€šå¸¸ã€ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹
 
-	// data ‚É‚Í—Ìˆæ‚â‰æ‘œ‚ÉŠÖ‚·‚éî•ñ‚ª“ü‚Á‚Ä‚¢‚é
+	// data ã«ã¯é ˜åŸŸã‚„ç”»åƒã«é–¢ã™ã‚‹æƒ…å ±ãŒå…¥ã£ã¦ã„ã‚‹
 
-	// data->Left, data->Top, data->Width, data->Height ‚Å¦‚³‚ê‚é‹éŒ`‚É
-	// ‚Ì‚İ“]‘—‚·‚é•K—v‚ª‚ ‚éB
+	// data->Left, data->Top, data->Width, data->Height ã§ç¤ºã•ã‚Œã‚‹çŸ©å½¢ã«
+	// ã®ã¿è»¢é€ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 
-	// •Ï”‚Ì€”õ
+	// å¤‰æ•°ã®æº–å‚™
 	tjs_int destxofs = data->DestLeft - data->Left;
 //	tjs_int destyofs = data->DestTop - data->Top;
 
@@ -111,7 +111,7 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 	if(TJS_FAILED(data->Src2->GetPitchBytes(&src2pitch)))
 		return TJS_E_FAIL;
 
-	// Šeƒ‰ƒCƒ“‚²‚Æ‚É“]‘—
+	// å„ãƒ©ã‚¤ãƒ³ã”ã¨ã«è»¢é€
 	tjs_int h = data->Height;
 	tjs_int y = data->Top;
 	while(h--)
@@ -120,30 +120,30 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 
 		for(tjs_int i = 0; i < line->count; i++)
 		{
-			// Še—Ìˆæ‚²‚Æ‚É
+			// å„é ˜åŸŸã”ã¨ã«
 			if(line->region[i].left == line->region[i].right) continue;
 			tjs_int l = line->region[i].left;
 			tjs_int r = line->region[i].right;
 			if(Clip(l, r, data->Left, data->Left + data->Width))
 			{
-				// l, r ‚Í data->Left, data->Width ‚ÅƒNƒŠƒbƒv‚³‚ê‚½Œ‹‰Ê
-				// c‚Á‚½
+				// l, r ã¯ data->Left, data->Width ã§ã‚¯ãƒªãƒƒãƒ—ã•ã‚ŒãŸçµæœ
+				// æ®‹ã£ãŸ
 				tjs_int type = line->region[i].type;
 				if(type == 0)
 				{
-					// ”wŒi
+					// èƒŒæ™¯
 					TVPFillARGB((tjs_uint32*)dest + destxofs + l, r - l, BGColor);
 				}
 				else
 				{
-					// src1 ‚Ü‚½‚Í src2
+					// src1 ã¾ãŸã¯ src2
 					const tRotateDrawLine & drawline
 						= (type == 1) ? line->src1 : line->src2;
 
-					// “]‘—
+					// è»¢é€
 					if(drawline.stepx == 65536 && drawline.stepy == 0)
 					{
-						// ‚»‚Ì‚Ü‚Ü“]‘—
+						// ãã®ã¾ã¾è»¢é€
 						memcpy((tjs_uint32*)dest + destxofs + l,
 							(const tjs_uint32*)((type == 1 ? src1 : src2) +
 							((drawline.sy + (l - drawline.start) * drawline.stepy) >> 16)*
@@ -153,7 +153,7 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 					}
 					else if(drawline.stepy == 0)
 					{
-						// Šg‘åk¬“]‘—
+						// æ‹¡å¤§ç¸®å°è»¢é€
 						TVPStretchCopy((tjs_uint32*)dest + destxofs + l,
 							r - l,
                             (const tjs_uint32*)((type == 1 ? src1 : src2) +
@@ -164,7 +164,7 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 					}
 					else
 					{
-						// üŒ`•ÏŒ`“]‘—
+						// ç·šå½¢å¤‰å½¢è»¢é€
 						TVPLinTransCopy((tjs_uint32*)dest + destxofs + l,
 							r - l,
 							(const tjs_uint32*)(type == 1 ? src1 : src2),
@@ -188,14 +188,14 @@ tjs_error TJS_INTF_METHOD tTVPBaseRotateTransHandler::Process(
 void tTVPBaseRotateTransHandler::AddLine(tjs_int line,
 	tjs_int left, tjs_int right, tjs_int type)
 {
-	// line ‚Å¦‚µ‚½ƒ‰ƒCƒ“‚É left ‚Æ right ‚Å¦‚µ‚½—Ìˆæ‚ğ type ‚Åã‘‚«‚·‚é
-	// —Ìˆæ‚Æ left, right ‚É‚æ‚Á‚Ä‚¢‚ë‚¢‚ëˆ—‚ª•Ï‚í‚é
-	// —Ìˆæ‚ª left, right ‚æ‚è‚à¶‰E‚É‚Í‚İo‚Ä‚¢‚éê‡
-	//    ¨‚»‚Ì—Ìˆæ‚ğ‚Q‚Â‚É•ªŠ„‚µA^‚ñ’†‚É left, right ‚ğ‘}“ü
-	// —Ìˆæ‚ª left, right ‚Ì¶‰E‚Ì‚Ç‚¿‚ç‚©‚É‚Í‚İo‚Ä‚¢‚éê‡
-	//    ¨‚»‚Ì—Ìˆæ‚ğƒNƒŠƒbƒv‚µA‰E‚©¶‚É left, right ‚ğ‘}“ü
-	// left, right ‚ª—Ìˆæ‚ğŠ®‘S‚É“à•ï‚·‚éê‡
-	//    ¨‚»‚Ì—Ìˆæ‚ğíœ
+	// line ã§ç¤ºã—ãŸãƒ©ã‚¤ãƒ³ã« left ã¨ right ã§ç¤ºã—ãŸé ˜åŸŸã‚’ type ã§ä¸Šæ›¸ãã™ã‚‹
+	// é ˜åŸŸã¨ left, right ã«ã‚ˆã£ã¦ã„ã‚ã„ã‚å‡¦ç†ãŒå¤‰ã‚ã‚‹
+	// é ˜åŸŸãŒ left, right ã‚ˆã‚Šã‚‚å·¦å³ã«ã¯ã¿å‡ºã¦ã„ã‚‹å ´åˆ
+	//    â†’ãã®é ˜åŸŸã‚’ï¼’ã¤ã«åˆ†å‰²ã—ã€çœŸã‚“ä¸­ã« left, right ã‚’æŒ¿å…¥
+	// é ˜åŸŸãŒ left, right ã®å·¦å³ã®ã©ã¡ã‚‰ã‹ã«ã¯ã¿å‡ºã¦ã„ã‚‹å ´åˆ
+	//    â†’ãã®é ˜åŸŸã‚’ã‚¯ãƒªãƒƒãƒ—ã—ã€å³ã‹å·¦ã« left, right ã‚’æŒ¿å…¥
+	// left, right ãŒé ˜åŸŸã‚’å®Œå…¨ã«å†…åŒ…ã™ã‚‹å ´åˆ
+	//    â†’ãã®é ˜åŸŸã‚’å‰Šé™¤
 
 	if(Clip(left, right, 0, Width))
 	{
@@ -207,41 +207,41 @@ void tTVPBaseRotateTransHandler::AddLine(tjs_int line,
 
 			if(data->region[i].left >= left && data->region[i].right <= right)
 			{
-				// left, right ‚ª—Ìˆæ‚ğŠ®‘S‚É“à•ï‚·‚éê‡
-				//    ¨‚»‚Ì—Ìˆæ‚ğíœ
+				// left, right ãŒé ˜åŸŸã‚’å®Œå…¨ã«å†…åŒ…ã™ã‚‹å ´åˆ
+				//    â†’ãã®é ˜åŸŸã‚’å‰Šé™¤
 				data->region[i].right = data->region[i].left;
-					// ˆê“I‚É’·‚³‚ğ 0 ‚É‚·‚é ( ‚ ‚Æ‚Å‚±‚±‚ÉV‚µ‚­‘}“ü‚³‚ê‚é‚©A
-					// ‚ ‚é‚¢‚Í‚»‚Ì‚Ü‚Ü•ú’u‚³‚ê‚é )
+					// ä¸€æ™‚çš„ã«é•·ã•ã‚’ 0 ã«ã™ã‚‹ ( ã‚ã¨ã§ã“ã“ã«æ–°ã—ãæŒ¿å…¥ã•ã‚Œã‚‹ã‹ã€
+					// ã‚ã‚‹ã„ã¯ãã®ã¾ã¾æ”¾ç½®ã•ã‚Œã‚‹ )
 
 				continue;
 			}
 
 			if(data->region[i].left < left && data->region[i].right > right)
 			{
-				// —Ìˆæ‚ª left, right ‚æ‚è‚à¶‰E‚É‚Í‚İo‚Ä‚¢‚éê‡
-				//    ¨‚»‚Ì—Ìˆæ‚ğ‚Q‚Â‚É•ªŠ„‚µA^‚ñ’†‚É left, right ‚ğ‘}“ü
+				// é ˜åŸŸãŒ left, right ã‚ˆã‚Šã‚‚å·¦å³ã«ã¯ã¿å‡ºã¦ã„ã‚‹å ´åˆ
+				//    â†’ãã®é ˜åŸŸã‚’ï¼’ã¤ã«åˆ†å‰²ã—ã€çœŸã‚“ä¸­ã« left, right ã‚’æŒ¿å…¥
 
-				// V‚µ‚¢—Ìˆæ‚É•ªŠ„‚³‚ê‚é‰E‘¤‚ğì¬
+				// æ–°ã—ã„é ˜åŸŸã«åˆ†å‰²ã•ã‚Œã‚‹å³å´ã‚’ä½œæˆ
 				data->region[data->count].left = right;
 				data->region[data->count].right = data->region[i].right;
 				data->region[data->count].type = data->region[i].type;
 
 				data->count++;
 
-				// •ªŠ„‚³‚ê‚é¶‘¤‚Ì—Ìˆæ‚Ì right ‚ğƒJƒbƒg
+				// åˆ†å‰²ã•ã‚Œã‚‹å·¦å´ã®é ˜åŸŸã® right ã‚’ã‚«ãƒƒãƒˆ
 				data->region[i].right = left;
 
 
-				// ‚±‚êˆÈãˆ—‚Í•K—v‚È‚¢‚Ì‚Åƒ‹[ƒv‚©‚ç”²‚¯‚é
+				// ã“ã‚Œä»¥ä¸Šå‡¦ç†ã¯å¿…è¦ãªã„ã®ã§ãƒ«ãƒ¼ãƒ—ã‹ã‚‰æŠœã‘ã‚‹
 				break;
 			}
 
 			if(data->region[i].left < left && data->region[i].right > left)
 			{
-				// —Ìˆæ‚ª left, right ‚Ì¶‰E‚Ì‚Ç‚¿‚ç‚©‚É‚Í‚İo‚Ä‚¢‚éê‡
-				//    ¨‚»‚Ì—Ìˆæ‚ğƒNƒŠƒbƒv‚µA‰E‚©¶‚É left, right ‚ğ‘}“ü
+				// é ˜åŸŸãŒ left, right ã®å·¦å³ã®ã©ã¡ã‚‰ã‹ã«ã¯ã¿å‡ºã¦ã„ã‚‹å ´åˆ
+				//    â†’ãã®é ˜åŸŸã‚’ã‚¯ãƒªãƒƒãƒ—ã—ã€å³ã‹å·¦ã« left, right ã‚’æŒ¿å…¥
 
-				// —Ìˆæ‚Ì‰E‘¤‚ğƒJƒbƒg
+				// é ˜åŸŸã®å³å´ã‚’ã‚«ãƒƒãƒˆ
 				data->region[i].right = left;
 
 				continue;
@@ -249,10 +249,10 @@ void tTVPBaseRotateTransHandler::AddLine(tjs_int line,
 
 			if(data->region[i].left < right && data->region[i].right > right)
 			{
-				// —Ìˆæ‚ª left, right ‚Ì¶‰E‚Ì‚Ç‚¿‚ç‚©‚É‚Í‚İo‚Ä‚¢‚éê‡
-				//    ¨‚»‚Ì—Ìˆæ‚ğƒNƒŠƒbƒv‚µA‰E‚©¶‚É left, right ‚ğ‘}“ü
+				// é ˜åŸŸãŒ left, right ã®å·¦å³ã®ã©ã¡ã‚‰ã‹ã«ã¯ã¿å‡ºã¦ã„ã‚‹å ´åˆ
+				//    â†’ãã®é ˜åŸŸã‚’ã‚¯ãƒªãƒƒãƒ—ã—ã€å³ã‹å·¦ã« left, right ã‚’æŒ¿å…¥
 
-				// —Ìˆæ‚Ì¶‘¤‚ğƒJƒbƒg
+				// é ˜åŸŸã®å·¦å´ã‚’ã‚«ãƒƒãƒˆ
 				data->region[i].left = right;
 
 				continue;
@@ -260,28 +260,28 @@ void tTVPBaseRotateTransHandler::AddLine(tjs_int line,
 
 		}
 
-		// left, right ‚ğ‘}“ü‚·‚é‚½‚ß‚É‹ó‚«‚ğ’T‚·
+		// left, right ã‚’æŒ¿å…¥ã™ã‚‹ãŸã‚ã«ç©ºãã‚’æ¢ã™
 		for(i = 0; i < data->count; i++)
 		{
-			if(data->region[i].left == data->region[i].right) break; // ‹ó‚«
-		}	// ‹ó‚«‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡‚Í i == data->count
+			if(data->region[i].left == data->region[i].right) break; // ç©ºã
+		}	// ç©ºããŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã¯ i == data->count
 
-		// ƒf[ƒ^‚ğì¬
+		// ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆ
 		data->region[i].left = left;
 		data->region[i].right = right;
 		data->region[i].type = type;
 
-		// V‹K‚É’Ç‰Á‚³‚ê‚½ê‡‚Í ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+		// æ–°è¦ã«è¿½åŠ ã•ã‚ŒãŸå ´åˆã¯ ã‚«ã‚¦ãƒ³ãƒˆã‚’å¢—ã‚„ã™
 		if(i == data->count) data->count++;
 	}
 }
 //---------------------------------------------------------------------------
 void tTVPBaseRotateTransHandler::AddSource(const tPoint *points, tjs_int type)
 {
-	// type ( 1 = src1, 2 = src2 ) ‚Å•\‚³‚ê‚½ƒ\[ƒX‚ğApoints ‚Ì‚R“_‚Å¦‚³‚ê‚½
-	// ˆÊ’u‚É•ÏŒ`“]‘—‚·‚é‚æ‚¤‚Éİ’è‚·‚éB
+	// type ( 1 = src1, 2 = src2 ) ã§è¡¨ã•ã‚ŒãŸã‚½ãƒ¼ã‚¹ã‚’ã€points ã®ï¼“ç‚¹ã§ç¤ºã•ã‚ŒãŸ
+	// ä½ç½®ã«å¤‰å½¢è»¢é€ã™ã‚‹ã‚ˆã†ã«è¨­å®šã™ã‚‹ã€‚
 
-	// ‹g—¢‹g—¢–{‘Ì‚Ìƒ\[ƒX‚Ì LayerBitmapIntf.cpp ‚©‚çˆø‚Á’£‚Á‚Ä‚«‚½
+	// å‰é‡Œå‰é‡Œæœ¬ä½“ã®ã‚½ãƒ¼ã‚¹ã® LayerBitmapIntf.cpp ã‹ã‚‰å¼•ã£å¼µã£ã¦ããŸ
 
 	// vertex points
 	tjs_int points_x[4];

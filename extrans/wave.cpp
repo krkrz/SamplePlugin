@@ -7,38 +7,38 @@
 
 //---------------------------------------------------------------------------
 /*
-	'”g' ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-	ƒ‰ƒXƒ^ƒXƒNƒ[ƒ‹‚É‚æ‚éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
+	'æ³¢' ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
+	ãƒ©ã‚¹ã‚¿ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã«ã‚ˆã‚‹ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
 */
 //---------------------------------------------------------------------------
 class tTVPWaveTransHandler : public iTVPDivisibleTransHandler
 {
-	//	'”g' ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒNƒ‰ƒX‚ÌÀ‘•
+	//	'æ³¢' ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…
 
-	tjs_int RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_int RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 		/*
-			iTVPDivisibleTransHandler ‚Í QÆƒJƒEƒ“ƒ^‚É‚æ‚éŠÇ—‚ğs‚¤
+			iTVPDivisibleTransHandler ã¯ å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã«ã‚ˆã‚‹ç®¡ç†ã‚’è¡Œã†
 		*/
 
 protected:
-	tjs_uint64 StartTick; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠJn‚µ‚½ tick count
-	tjs_uint64 HalfTime; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚É—v‚·‚éŠÔ / 2
-	tjs_uint64 Time; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚É—v‚·‚éŠÔ
-	tTVPLayerType LayerType; // ƒŒƒCƒ„ƒ^ƒCƒv
-	tjs_int Width; // ˆ—‚·‚é‰æ‘œ‚Ì•
-	tjs_int Height; // ˆ—‚·‚é‰æ‘œ‚Ì‚‚³
-	tjs_int MaxH; // Å‘åU•
-	double MaxOmega; // Å‘åŠp‘¬“x
-	tjs_int CurH; // Œ»İ‚ÌU•
-	double CurOmega; // Œ»İ‚ÌŠp‘¬“x
-	double CurRadStart; // ŠpŠJnˆÊ’u
-	tjs_int64 CurTime; // Œ»İ‚Ì tick count
-	tjs_int BlendRatio; // ƒuƒŒƒ“ƒh”ä
-	tjs_uint32 BGColor1; // ”wŒiF‚»‚Ì‚P
-	tjs_uint32 BGColor2; // ”wŒiF‚»‚Ì‚Q
-	tjs_uint32 CurBGColor; // Œ»İ‚Ì”wŒiF
-	tjs_int WaveType; // 0 = Å‰‚ÆÅŒã 1 = Å‰ 2 = ÅŒã ‚ª”g‚ª×‚©‚¢
-	bool First; // ˆê”ÔÅ‰‚ÌŒÄ‚Ño‚µ‚©‚Ç‚¤‚©
+	tjs_uint64 StartTick; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã—ãŸ tick count
+	tjs_uint64 HalfTime; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã«è¦ã™ã‚‹æ™‚é–“ / 2
+	tjs_uint64 Time; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã«è¦ã™ã‚‹æ™‚é–“
+	tTVPLayerType LayerType; // ãƒ¬ã‚¤ãƒ¤ã‚¿ã‚¤ãƒ—
+	tjs_int Width; // å‡¦ç†ã™ã‚‹ç”»åƒã®å¹…
+	tjs_int Height; // å‡¦ç†ã™ã‚‹ç”»åƒã®é«˜ã•
+	tjs_int MaxH; // æœ€å¤§æŒ¯å¹…
+	double MaxOmega; // æœ€å¤§è§’é€Ÿåº¦
+	tjs_int CurH; // ç¾åœ¨ã®æŒ¯å¹…
+	double CurOmega; // ç¾åœ¨ã®è§’é€Ÿåº¦
+	double CurRadStart; // è§’é–‹å§‹ä½ç½®
+	tjs_int64 CurTime; // ç¾åœ¨ã® tick count
+	tjs_int BlendRatio; // ãƒ–ãƒ¬ãƒ³ãƒ‰æ¯”
+	tjs_uint32 BGColor1; // èƒŒæ™¯è‰²ãã®ï¼‘
+	tjs_uint32 BGColor2; // èƒŒæ™¯è‰²ãã®ï¼’
+	tjs_uint32 CurBGColor; // ç¾åœ¨ã®èƒŒæ™¯è‰²
+	tjs_int WaveType; // 0 = æœ€åˆã¨æœ€å¾Œ 1 = æœ€åˆ 2 = æœ€å¾Œ ãŒæ³¢ãŒç´°ã‹ã„
+	bool First; // ä¸€ç•ªæœ€åˆã®å‘¼ã³å‡ºã—ã‹ã©ã†ã‹
 
 public:
 	tTVPWaveTransHandler(tjs_uint64 time, tTVPLayerType layertype,
@@ -68,16 +68,16 @@ public:
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -90,8 +90,8 @@ public:
 			/*in*/iTVPSimpleOptionProvider *options // option provider
 		)
 	{
-		// iTVPBaseTransHandler ‚Ì SetOption
-		// ‚Æ‚­‚É‚â‚é‚±‚Æ‚È‚µ
+		// iTVPBaseTransHandler ã® SetOption
+		// ã¨ãã«ã‚„ã‚‹ã“ã¨ãªã—
 		return TJS_S_OK;
 	}
 
@@ -107,27 +107,27 @@ public:
 			iTVPScanLineProvider * src1,
 			iTVPScanLineProvider * src2)
 	{
-		*dest = src2; // í‚ÉÅI‰æ‘œ‚Í src2
+		*dest = src2; // å¸¸ã«æœ€çµ‚ç”»åƒã¯ src2
 		return TJS_S_OK;
 	}
 };
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::StartProcess(tjs_uint64 tick)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚É‚Â‚«A‚Ü‚¸Å‰‚É StartProcess ‚ªŒÄ‚Î‚ê‚é
-	// ‚»‚Ì‚ ‚Æ Process ‚ª•¡”‰ñŒÄ‚Î‚ê‚é ( —Ìˆæ‚ğ•ªŠ„ˆ—‚µ‚Ä‚¢‚éê‡ )
-	// ÅŒã‚É EndProcess ‚ªŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãã€ã¾ãšæœ€åˆã« StartProcess ãŒå‘¼ã°ã‚Œã‚‹
+	// ãã®ã‚ã¨ Process ãŒè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹ ( é ˜åŸŸã‚’åˆ†å‰²å‡¦ç†ã—ã¦ã„ã‚‹å ´åˆ )
+	// æœ€å¾Œã« EndProcess ãŒå‘¼ã°ã‚Œã‚‹
 
 	if(First)
 	{
-		// Å‰‚ÌÀs
+		// æœ€åˆã®å®Ÿè¡Œ
 		First = false;
 		StartTick = tick;
 	}
 
-	// ‰æ‘œ‰‰Z‚É•K—v‚ÈŠeƒpƒ‰ƒ[ƒ^‚ğŒvZ
+	// ç”»åƒæ¼”ç®—ã«å¿…è¦ãªå„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨ˆç®—
 	tjs_int64 t = CurTime = (tick - StartTick);
 	if(CurTime > Time) CurTime = Time;
 	if(t >= HalfTime) t = Time - t;
@@ -139,13 +139,13 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::StartProcess(tjs_uint64 tick)
 	CurH = tt * MaxH;
 	switch(WaveType)
 	{
-	case 0: // Å‰‚ÆÅŒã‚ª”g‚ª×‚©‚¢
+	case 0: // æœ€åˆã¨æœ€å¾ŒãŒæ³¢ãŒç´°ã‹ã„
 		CurOmega = MaxOmega * tt;
 		break;
-	case 1: // Å‰‚ª”g‚ª×‚©‚¢
+	case 1: // æœ€åˆãŒæ³¢ãŒç´°ã‹ã„
 		CurOmega = MaxOmega * ((tjs_int64)Time - CurTime) / (tjs_int64)Time;
 		break;
-	case 2: // ÅŒã‚ª”g‚ª×‚©‚¢
+	case 2: // æœ€å¾ŒãŒæ³¢ãŒç´°ã‹ã„
 		CurOmega = MaxOmega * CurTime / (tjs_int64)Time;
 		break;
 	}
@@ -155,7 +155,7 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::StartProcess(tjs_uint64 tick)
 	BlendRatio = CurTime * 255 / Time;
 	if(BlendRatio > 255) BlendRatio = 255;
 
-	// ”wŒiF‚ÌƒuƒŒƒ“ƒh
+	// èƒŒæ™¯è‰²ã®ãƒ–ãƒ¬ãƒ³ãƒ‰
 	CurBGColor = Blend(BGColor1, BGColor2, BlendRatio);
 
 	return TJS_S_TRUE;
@@ -163,9 +163,9 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::StartProcess(tjs_uint64 tick)
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::EndProcess()
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ•ª‚ªI‚í‚é‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›åˆ†ãŒçµ‚ã‚ã‚‹ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	if(BlendRatio == 255) return TJS_S_FALSE; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“I—¹
+	if(BlendRatio == 255) return TJS_S_FALSE; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³çµ‚äº†
 
 	return TJS_S_TRUE;
 }
@@ -173,33 +173,33 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::EndProcess()
 tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 			tTVPDivisibleData *data)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌŠe—Ìˆæ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
-	// ‹g—¢‹g—¢‚Í‰æ–Ê‚ğXV‚·‚é‚Æ‚«‚É‚¢‚­‚Â‚©‚Ì—Ìˆæ‚É•ªŠ„‚µ‚È‚ª‚çˆ—‚ğs‚¤‚Ì‚Å
-	// ‚±‚Ìƒƒ\ƒbƒh‚Í’ÊíA‰æ–ÊXVˆê‰ñ‚É‚Â‚«•¡”‰ñŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®å„é ˜åŸŸã”ã¨ã«å‘¼ã°ã‚Œã‚‹
+	// å‰é‡Œå‰é‡Œã¯ç”»é¢ã‚’æ›´æ–°ã™ã‚‹ã¨ãã«ã„ãã¤ã‹ã®é ˜åŸŸã«åˆ†å‰²ã—ãªãŒã‚‰å‡¦ç†ã‚’è¡Œã†ã®ã§
+	// ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯é€šå¸¸ã€ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹
 
-	// data ‚É‚Í—Ìˆæ‚â‰æ‘œ‚ÉŠÖ‚·‚éî•ñ‚ª“ü‚Á‚Ä‚¢‚é
+	// data ã«ã¯é ˜åŸŸã‚„ç”»åƒã«é–¢ã™ã‚‹æƒ…å ±ãŒå…¥ã£ã¦ã„ã‚‹
 
-	// ‰Šúƒpƒ‰ƒ[ƒ^‚ğŒvZ
-	double rad = data->Top * CurOmega + CurRadStart; // Šp“x
+	// åˆæœŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨ˆç®—
+	double rad = data->Top * CurOmega + CurRadStart; // è§’åº¦
 
-	// ƒ‰ƒCƒ“‚²‚Æ‚Éˆ—
+	// ãƒ©ã‚¤ãƒ³ã”ã¨ã«å‡¦ç†
 	tjs_int n;
 	for(n = 0; n < data->Height; n++, rad += CurOmega)
 	{
-		// ƒYƒŒˆÊ’u
+		// ã‚ºãƒ¬ä½ç½®
 		tjs_int d = (tjs_int)(sin(rad) * CurH);
 
-		// “]‘—
+		// è»¢é€
 		tjs_int l, r;
 
-		// ‚±‚±‚Å‚â‚é‚×‚«‚±‚Æ‚ÍAdata->Src1 ‚Æ data->Src2 ‚Ì (0, data->Top + n) ‚©‚ç
-		// n‚Ü‚é‚Pƒ‰ƒCƒ“‚ğ BlendRatio ‚É‚æ‚Á‚ÄƒuƒŒƒ“ƒh‚µA(d, data->Top + n) ‚É
-		// “]‘—‚·‚éB‚Í‚İo‚Ä•`‰æ‚³‚ê‚È‚¢•”•ª‚Í CurBGColor ‚Å“h‚è‚Â‚Ô‚·B
-		// ‚½‚¾‚µA¶‰E‚Í data->Left ‚Æ data->Width ‚É‚æ‚Á‚ÄƒNƒŠƒbƒsƒ“ƒO‚³‚ê‚éB
-		// ‚Ü‚½Adata->Dest ‚É“]‘—‚·‚é‚Æ‚«‚ÍA‚»‚ÌƒIƒtƒZƒbƒg‚Í (data->Left, data->Top)
-		// ‚Å‚Í‚È‚­‚Ä(data->DestLeft, data->DestTop) ‚É‚È‚é‚Ì‚Å•â³‚·‚éB
+		// ã“ã“ã§ã‚„ã‚‹ã¹ãã“ã¨ã¯ã€data->Src1 ã¨ data->Src2 ã® (0, data->Top + n) ã‹ã‚‰
+		// å§‹ã¾ã‚‹ï¼‘ãƒ©ã‚¤ãƒ³ã‚’ BlendRatio ã«ã‚ˆã£ã¦ãƒ–ãƒ¬ãƒ³ãƒ‰ã—ã€(d, data->Top + n) ã«
+		// è»¢é€ã™ã‚‹ã€‚ã¯ã¿å‡ºã¦æç”»ã•ã‚Œãªã„éƒ¨åˆ†ã¯ CurBGColor ã§å¡—ã‚Šã¤ã¶ã™ã€‚
+		// ãŸã ã—ã€å·¦å³ã¯ data->Left ã¨ data->Width ã«ã‚ˆã£ã¦ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°ã•ã‚Œã‚‹ã€‚
+		// ã¾ãŸã€data->Dest ã«è»¢é€ã™ã‚‹ã¨ãã¯ã€ãã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã¯ (data->Left, data->Top)
+		// ã§ã¯ãªãã¦(data->DestLeft, data->DestTop) ã«ãªã‚‹ã®ã§è£œæ­£ã™ã‚‹ã€‚
 
-		// ƒXƒLƒƒƒ“ƒ‰ƒCƒ“
+		// ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³
 		tjs_uint32 *dest;
 		const tjs_uint32 *src1;
 		const tjs_uint32 *src2;
@@ -210,7 +210,7 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 		if(TJS_FAILED(data->Src2->GetScanLine(data->Top + n, (const void**)&src2)))
 			return TJS_E_FAIL;
 
-		// ¶‘¤‚Ì‚¸‚ê‚é•”•ª‚É”wŒiF‚ğ“]‘—
+		// å·¦å´ã®ãšã‚Œã‚‹éƒ¨åˆ†ã«èƒŒæ™¯è‰²ã‚’è»¢é€
 		if(d > 0)
 		{
 			l = 0;
@@ -219,7 +219,7 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 				TVPFillARGB(dest + l + data->DestLeft - data->Left, r - l, CurBGColor);
 		}
 
-		// ¶’[‚Ì‚¸‚ê‚é•”•ª‚É”wŒiF‚ğ“]‘—
+		// å·¦ç«¯ã®ãšã‚Œã‚‹éƒ¨åˆ†ã«èƒŒæ™¯è‰²ã‚’è»¢é€
 		if(d < 0)
 		{
 			l = d + Width;
@@ -228,9 +228,9 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 				TVPFillARGB(dest + l + data->DestLeft - data->Left, r - l, CurBGColor);
 		}
 
-		// ƒuƒŒƒ“ƒh‚µ‚È‚ª‚ç“]‘—
+		// ãƒ–ãƒ¬ãƒ³ãƒ‰ã—ãªãŒã‚‰è»¢é€
 		// TVPConstAlphaBlend_SD(dest, src1, src2, len, opa)
-		// ‚Í dest ‚É src1 ‚Æ src2 ‚ğ opa ‚Åw’è‚µ‚½¬‡”ä‚Å¬‡‚µ‚Ä“]‘—‚·‚é
+		// ã¯ dest ã« src1 ã¨ src2 ã‚’ opa ã§æŒ‡å®šã—ãŸæ··åˆæ¯”ã§æ··åˆã—ã¦è»¢é€ã™ã‚‹
 		l = d;
 		r = Width + d;
 		if(Clip(l, r, data->Left, data->Left + data->Width))
@@ -245,13 +245,13 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 				TVPConstAlphaBlend_SD(dest + l + data->DestLeft - data->Left,
 					src1 + l - d, src2 + l - d, r - l, BlendRatio);
 				/*
-					“]‘—æ‚ªƒ¿‚ğ‚Á‚Ä‚¢‚éê‡‚ÍƒuƒŒƒ“ƒhƒAƒ‹ƒSƒŠƒYƒ€‚ªˆá‚¤‚Ì‚Å
-					’ˆÓ‚·‚é•K—v‚ª‚ ‚éB
-					_d ‚ÌƒTƒtƒBƒbƒNƒX‚ğ‚ÂƒuƒŒƒ“ƒhŠÖ”‚Í‚·‚×‚Ä’Êí‚Ìƒ¿ƒuƒŒƒ“ƒh‚ÅA
-					ƒ¿’l‚ğl—¶‚µ‚½ƒuƒŒƒ“ƒh‚ğs‚¤B“¯—l‚É _a ‚ÌƒTƒtƒBƒbƒNƒX‚ğ‚Â
-					ƒuƒŒƒ“ƒhŠÖ”‚Í‰ÁZƒ¿ƒuƒŒƒ“ƒh‚Å‚ ‚éB_a ‚â _d ƒTƒtƒBƒbƒNƒX‚ğ
-					‚½‚È‚¢ƒuƒŒƒ“ƒhŠÖ”‚É”ä‚×‚Ä’á‘¬B_d ‚â _a ƒTƒtƒBƒbƒNƒX‚ğ‚½‚È
-					‚¢ƒuƒŒƒ“ƒhŠÖ”‚Íƒ¿’l‚Íˆµ‚í‚È‚¢ ( í‚ÉŠ®‘S‚É•s“§–¾‚Å‚ ‚é‚Æˆµ‚í‚ê‚é )B
+					è»¢é€å…ˆãŒÎ±ã‚’æŒã£ã¦ã„ã‚‹å ´åˆã¯ãƒ–ãƒ¬ãƒ³ãƒ‰ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ãŒé•ã†ã®ã§
+					æ³¨æ„ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+					_d ã®ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’æŒã¤ãƒ–ãƒ¬ãƒ³ãƒ‰é–¢æ•°ã¯ã™ã¹ã¦é€šå¸¸ã®Î±ãƒ–ãƒ¬ãƒ³ãƒ‰ã§ã€
+					Î±å€¤ã‚’è€ƒæ…®ã—ãŸãƒ–ãƒ¬ãƒ³ãƒ‰ã‚’è¡Œã†ã€‚åŒæ§˜ã« _a ã®ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’æŒã¤
+					ãƒ–ãƒ¬ãƒ³ãƒ‰é–¢æ•°ã¯åŠ ç®—Î±ãƒ–ãƒ¬ãƒ³ãƒ‰ã§ã‚ã‚‹ã€‚_a ã‚„ _d ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’æŒ
+					ãŸãªã„ãƒ–ãƒ¬ãƒ³ãƒ‰é–¢æ•°ã«æ¯”ã¹ã¦ä½é€Ÿã€‚_d ã‚„ _a ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹ã‚’æŒãŸãª
+					ã„ãƒ–ãƒ¬ãƒ³ãƒ‰é–¢æ•°ã¯Î±å€¤ã¯æ‰±ã‚ãªã„ ( å¸¸ã«å®Œå…¨ã«ä¸é€æ˜ã§ã‚ã‚‹ã¨æ‰±ã‚ã‚Œã‚‹ )ã€‚
 				*/
 		}
 	}
@@ -266,23 +266,23 @@ tjs_error TJS_INTF_METHOD tTVPWaveTransHandler::Process(
 //---------------------------------------------------------------------------
 class tTVPWaveTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_uint RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 public:
 	tTVPWaveTransHandlerProvider() { RefCount = 1; }
 	~tTVPWaveTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -293,7 +293,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì–¼‘O‚ğ•Ô‚·
+		// ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®åå‰ã‚’è¿”ã™
 		if(name) *name = TJS_W("wave");
 		return TJS_S_OK;
 	}
@@ -317,10 +317,10 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 ‚Æ src2 ‚ÌƒTƒCƒY‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+			return TJS_E_FAIL; // src1 ã¨ src2 ã®ã‚µã‚¤ã‚ºãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
 
-		// ƒIƒvƒVƒ‡ƒ“‚ğ“¾‚é
+		// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		tjs_int maxh = 50;
@@ -330,10 +330,10 @@ public:
 		tjs_int wavetype = 0;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time ‘®«‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢
+			return TJS_E_FAIL; // time å±æ€§ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ‚ ‚Ü‚è¬‚³‚È”’l‚ğw’è‚·‚é‚Æ–â‘è‚ª‹N‚«‚é‚Ì‚Å
+		if(time < 2) time = 2; // ã‚ã¾ã‚Šå°ã•ãªæ•°å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨å•é¡ŒãŒèµ·ãã‚‹ã®ã§
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("maxh"), &tmp)))
 			if(tmp.Type() != tvtVoid) maxh = (tjs_int)tmp;
@@ -351,7 +351,7 @@ public:
 			if(tmp.Type() != tvtVoid) wavetype = (tjs_int)tmp;
 
 
-		// ƒIƒuƒWƒFƒNƒg‚ğì¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 		*handler = new tTVPWaveTransHandler(time, layertype,
 			src1w, src1h, maxh, maxomega,
 			bgcolor1, bgcolor2, wavetype);
@@ -363,16 +363,16 @@ public:
 //---------------------------------------------------------------------------
 void RegisterWaveTransHandlerProvider()
 {
-	// TVPAddTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^‚·‚é
+	// TVPAddTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²ã™ã‚‹
 	WaveTransHandlerProvider = new tTVPWaveTransHandlerProvider();
 	TVPAddTransHandlerProvider(WaveTransHandlerProvider);
 }
 //---------------------------------------------------------------------------
 void UnregisterWaveTransHandlerProvider()
 {
-	// TVPRemoveTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^–•Á‚·‚é
+	// TVPRemoveTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²æŠ¹æ¶ˆã™ã‚‹
 	TVPRemoveTransHandlerProvider(WaveTransHandlerProvider);
 	WaveTransHandlerProvider->Release();
 }

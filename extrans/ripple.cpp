@@ -13,29 +13,29 @@
 
 //---------------------------------------------------------------------------
 /*
-	'”g–ä' ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-	’uŠ·ƒ}ƒbƒv‚É‚æ‚éA”g–ä‚ªL‚ª‚Á‚Ä‚¢‚­‚æ‚¤‚ÈŠ´‚¶‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-	‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Í“]‘—æ‚ªƒ¿‚ğ‚Á‚Ä‚¢‚é‚Æ(—v‚·‚é‚Éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğs‚¤
-	ƒŒƒCƒ„‚Ì type ‚ª ltOpaque ˆÈŠO‚Ìê‡)A³í‚É“§‰ßî•ñ‚ğˆ—‚Å‚«‚È‚¢‚Ì‚Å
-	’ˆÓ
+	'æ³¢ç´‹' ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
+	ç½®æ›ãƒãƒƒãƒ—ã«ã‚ˆã‚‹ã€æ³¢ç´‹ãŒåºƒãŒã£ã¦ã„ãã‚ˆã†ãªæ„Ÿã˜ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
+	ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã¯è»¢é€å…ˆãŒÎ±ã‚’æŒã£ã¦ã„ã‚‹ã¨(è¦ã™ã‚‹ã«ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’è¡Œã†
+	ãƒ¬ã‚¤ãƒ¤ã® type ãŒ ltOpaque ä»¥å¤–ã®å ´åˆ)ã€æ­£å¸¸ã«é€éæƒ…å ±ã‚’å‡¦ç†ã§ããªã„ã®ã§
+	æ³¨æ„
 */
 //---------------------------------------------------------------------------
 
 
-// 2003/12/15 W.Dee  M_PI ‚ª–¢’è‹`ƒGƒ‰[‚É‚È‚é‚Ì‚ğC³‚ÆSSE–½—ß‚ğ_emit‚É’u‚«Š·‚¦
+// 2003/12/15 W.Dee  M_PI ãŒæœªå®šç¾©ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ã®ã‚’ä¿®æ­£ã¨SSEå‘½ä»¤ã‚’_emitã«ç½®ãæ›ãˆ
 
 //---------------------------------------------------------------------------
 // #define TVP_DEBUG_RIPPLE_SHOW_UPDATE_COUNT
-	// ’è‹`‚·‚é‚Æƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“’†‚É‰æ–Ê‚ğXV‚µ‚½‰ñ”‚ğ•\¦‚·‚é
+	// å®šç¾©ã™ã‚‹ã¨ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ä¸­ã«ç”»é¢ã‚’æ›´æ–°ã—ãŸå›æ•°ã‚’è¡¨ç¤ºã™ã‚‹
 //---------------------------------------------------------------------------
 
 
 //---------------------------------------------------------------------------
 #define TVP_RIPPLE_DIR_PREC 32
-	// ƒe[ƒuƒ‹“à‚Å‚PÛŒÀ’†(90‹)‚Ì•ûŒü‚ğ‚¢‚­‚Â‚É•ªŠ„‚·‚é‚©
-	// (2 ‚Ì—İæ‚Å 256 ‚Ü‚ÅB‘å‚«‚­‚·‚é‚Æƒƒ‚ƒŠ‚ğH‚¤)
+	// ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã§ï¼‘è±¡é™ä¸­(90Â°)ã®æ–¹å‘ã‚’ã„ãã¤ã«åˆ†å‰²ã™ã‚‹ã‹
+	// (2 ã®ç´¯ä¹—ã§ 256 ã¾ã§ã€‚å¤§ããã™ã‚‹ã¨ãƒ¡ãƒ¢ãƒªã‚’é£Ÿã†)
 #define TVP_RIPPLE_DRIFT_PREC 4
-	// drift 1 ƒsƒNƒZƒ‹‚ğ‚¢‚­‚Â‚É•ªŠ„‚·‚é‚©
+	// drift 1 ãƒ”ã‚¯ã‚»ãƒ«ã‚’ã„ãã¤ã«åˆ†å‰²ã™ã‚‹ã‹
 //---------------------------------------------------------------------------
 #ifndef M_PI
 	#define M_PI (3.14159263589793238462)
@@ -45,31 +45,31 @@
 
 //---------------------------------------------------------------------------
 /*
-	‚¢‚­‚Â‚© ƒe[ƒuƒ‹‚ğŠÇ—‚·‚éƒNƒ‰ƒX/ŠÖ”ŒQ
-	ƒe[ƒuƒ‹‚ÍA’†SÀ•WAƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‰æ‘œ‚ÌƒTƒCƒYA
-	”g‚Ì•A”g–ä‚Ìc/‰¡”äA—h‚ê‚Ì•‚ª‘O‰ñ‚Æ•Ï‚í‚ç‚È‚¢ŒÀ‚èÄ¶¬‚Í‚³‚ê‚È‚¢B
-	Ä¶¬‚É‚Í‚·‚±‚µŠÔ‚ª‚©‚©‚é‚½‚ßA4‚Â‚Ü‚ÅƒLƒƒƒbƒVƒ…‚ğs‚¤‚±‚Æ‚ª‚Å‚«‚éB
+	ã„ãã¤ã‹ ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹/é–¢æ•°ç¾¤
+	ãƒ†ãƒ¼ãƒ–ãƒ«ã¯ã€ä¸­å¿ƒåº§æ¨™ã€ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”»åƒã®ã‚µã‚¤ã‚ºã€
+	æ³¢ã®å¹…ã€æ³¢ç´‹ã®ç¸¦/æ¨ªæ¯”ã€æºã‚Œã®å¹…ãŒå‰å›ã¨å¤‰ã‚ã‚‰ãªã„é™ã‚Šå†ç”Ÿæˆã¯ã•ã‚Œãªã„ã€‚
+	å†ç”Ÿæˆã«ã¯ã™ã“ã—æ™‚é–“ãŒã‹ã‹ã‚‹ãŸã‚ã€4ã¤ã¾ã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’è¡Œã†ã“ã¨ãŒã§ãã‚‹ã€‚
 */
 //---------------------------------------------------------------------------
 class tTVPRippleTable
 {
-	tjs_int RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_int RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 
-	tjs_int Width; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‰æ‘œ‚Ì•
-	tjs_int Height; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‰æ‘œ‚Ì‚‚³
+	tjs_int Width; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”»åƒã®å¹…
+	tjs_int Height; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”»åƒã®é«˜ã•
 
-	tjs_int CenterX; // ”g–ä‚Ì’†S X À•W
-	tjs_int CenterY; // ”g–ä‚Ì’†S Y À•W
+	tjs_int CenterX; // æ³¢ç´‹ã®ä¸­å¿ƒ X åº§æ¨™
+	tjs_int CenterY; // æ³¢ç´‹ã®ä¸­å¿ƒ Y åº§æ¨™
 
-	tjs_int RippleWidth; // ”g–ä‚Ì•
-	float Roundness; // ”g–ä‚Ìc/‰¡”ä
-	tjs_int MaxDrift; // —h‚ê‚ÌÅ‘å•
+	tjs_int RippleWidth; // æ³¢ç´‹ã®å¹…
+	float Roundness; // æ³¢ç´‹ã®ç¸¦/æ¨ªæ¯”
+	tjs_int MaxDrift; // æºã‚Œã®æœ€å¤§å¹…
 
-	tjs_int MapWidth; // ’uŠ·ƒ}ƒbƒv‚Ì•
-	tjs_int MapHeight; // ’uŠ·ƒ}ƒbƒv‚Ì‚‚³
+	tjs_int MapWidth; // ç½®æ›ãƒãƒƒãƒ—ã®å¹…
+	tjs_int MapHeight; // ç½®æ›ãƒãƒƒãƒ—ã®é«˜ã•
 
-	tjs_uint16 *DisplaceMap; // [ˆÊ’u]->[•ûŒü,‹——£] ’uŠ·ƒ}ƒbƒv
-	tjs_uint16 *DriftMap; // [—h‚ê‚Ì‘å‚«‚³,•ûŒü,‹——£]->[‚¸‚ê] ’uŠ·ƒ}ƒbƒv
+	tjs_uint16 *DisplaceMap; // [ä½ç½®]->[æ–¹å‘,è·é›¢] ç½®æ›ãƒãƒƒãƒ—
+	tjs_uint16 *DriftMap; // [æºã‚Œã®å¤§ãã•,æ–¹å‘,è·é›¢]->[ãšã‚Œ] ç½®æ›ãƒãƒƒãƒ—
 
 public:
 	tjs_int GetWidth() const { return Width; }
@@ -147,8 +147,8 @@ private:
 //---------------------------------------------------------------------------
 float inline TVPRippleWaveForm(float rad)
 {
-	// ”g‚ğ¶¬‚·‚éŠÖ”
-	// “K“–‚ÉBs ‚Í³‚É‚µ‚©‚È‚ç‚È‚¢‚ªŒ©‚½–Ú‚ª—Ç‚¢‚Ì‚Å‚±‚ê‚Å‚¢‚­
+	// æ³¢ã‚’ç”Ÿæˆã™ã‚‹é–¢æ•°
+	// é©å½“ã«ã€‚s ã¯æ­£ã«ã—ã‹ãªã‚‰ãªã„ãŒè¦‹ãŸç›®ãŒè‰¯ã„ã®ã§ã“ã‚Œã§ã„ã
 	float s = (sin(rad) + sin(rad*2-2) * 0.2) / 1.19;
 	s *= s;
 	return s;
@@ -162,19 +162,19 @@ void tTVPRippleTable::MakeTable()
 
 	try
 	{
-		// MapWidth, MapHeight ‚ÌŒvZ
-		// Width, Height ‚ğ CenterX, CenterY ‚Å•ªŠ„‚·‚é‚S‚Â‚ÌÛŒÀ‚Ì‚¤‚¿
-		// ‚à‚Á‚Æ‚à‘å‚«‚¢•¨‚ÌƒTƒCƒY‚ğ MapWidth, MapHeight ‚Æ‚·‚é
+		// MapWidth, MapHeight ã®è¨ˆç®—
+		// Width, Height ã‚’ CenterX, CenterY ã§åˆ†å‰²ã™ã‚‹ï¼”ã¤ã®è±¡é™ã®ã†ã¡
+		// ã‚‚ã£ã¨ã‚‚å¤§ãã„ç‰©ã®ã‚µã‚¤ã‚ºã‚’ MapWidth, MapHeight ã¨ã™ã‚‹
 		MapWidth = CenterX < (Width >> 1) ?
 			Width - CenterX : CenterX;
 		MapHeight = CenterY < (Height >> 1) ?
 			Height - CenterY : CenterY;
 
-		// DisplaceMap ƒƒ‚ƒŠŠm•Û
+		// DisplaceMap ãƒ¡ãƒ¢ãƒªç¢ºä¿
 		DisplaceMap = new tjs_uint16[MapWidth * MapHeight];
 
-		// DisplaceMap ŒvZ
-		// ’uŠ·ƒ}ƒbƒv‚Í‚PÛŒÀ‚É‚Â‚¢‚Ä‚Ì‚İŒvZ‚·‚é(‘¼‚ÌÛŒÀ‚Í‘ÎÌ‚¾‚©‚ç)
+		// DisplaceMap è¨ˆç®—
+		// ç½®æ›ãƒãƒƒãƒ—ã¯ï¼‘è±¡é™ã«ã¤ã„ã¦ã®ã¿è¨ˆç®—ã™ã‚‹(ä»–ã®è±¡é™ã¯å¯¾ç§°ã ã‹ã‚‰)
 		tjs_uint16 *rmp = DisplaceMap;
 		tjs_int ripplemask = RippleWidth - 1;
 		tjs_int x, y;
@@ -187,31 +187,31 @@ void tTVPRippleTable::MakeTable()
 				float xx =  (float)x + 0.5;
 
 				tjs_int dir = atan(xx*fac) * ((1.0/(M_PI/2.0)) * TVP_RIPPLE_DIR_PREC);
-					// dir = •ûŒüƒR[ƒh
+					// dir = æ–¹å‘ã‚³ãƒ¼ãƒ‰
 
 				tjs_int dist = (int)sqrt(xx*xx + yy*yy) & ripplemask;
-					// dist = ’†S‚©‚ç‚Ì‹——£
+					// dist = ä¸­å¿ƒã‹ã‚‰ã®è·é›¢
 
 				*(rmp++) = (tjs_uint16)((dist * TVP_RIPPLE_DIR_PREC) + dir);
 			}
 		}
 
-		// DriftMap ƒƒ‚ƒŠŠm•Û
-		// DriftMap ‚Ég—p‚·‚éƒƒ‚ƒŠ—Ê‚Í
+		// DriftMap ãƒ¡ãƒ¢ãƒªç¢ºä¿
+		// DriftMap ã«ä½¿ç”¨ã™ã‚‹ãƒ¡ãƒ¢ãƒªé‡ã¯
 		// MaxDrift*TVP_RIPPLE_DRIFT_PREC * RippleWidth * 2 * TVP_RIPPLE_DIR_PREC    *sizeof(tjs_uint16)
 		// tjs_uint32 [MaxDrift*TVP_RIPPLE_DRIFT_PREC][RippleWidth*2][TVP_RIPPLE_DIR_PREC]
-		// *2 ‚ª“ü‚Á‚Ä‚¢‚é‚Ì‚Í ‰æ‘œ‰‰Z’†‚É & ‚Åƒ}ƒXƒN‚ğ‚©‚¯‚é•K—v‚ª‚È‚¢‚æ‚¤‚É
+		// *2 ãŒå…¥ã£ã¦ã„ã‚‹ã®ã¯ ç”»åƒæ¼”ç®—ä¸­ã« & ã§ãƒã‚¹ã‚¯ã‚’ã‹ã‘ã‚‹å¿…è¦ãŒãªã„ã‚ˆã†ã«
 		DriftMap = new tjs_uint16[MaxDrift * TVP_RIPPLE_DRIFT_PREC * RippleWidth *
 			2 * TVP_RIPPLE_DIR_PREC];
 
 
-		// ”gŒ`‚ÌŒvZ
+		// æ³¢å½¢ã®è¨ˆç®—
 		float rcp_rw = 1.0 / (float)RippleWidth;
 		rippleform = new tjs_int32[RippleWidth];
 		tjs_int w;
 		for(w = 0; w < RippleWidth; w++)
 		{
-			// “K“–‚É”g‚Á‚Û‚­Œ©‚¦‚é”gŒ`(’Pƒ‚Èsin”g‚Å‚à‚æ‚¢)
+			// é©å½“ã«æ³¢ã£ã½ãè¦‹ãˆã‚‹æ³¢å½¢(å˜ç´”ãªsinæ³¢ã§ã‚‚ã‚ˆã„)
 			float rad = (float)w * rcp_rw * (M_PI * -2.0);
 			
 			float s = TVPRippleWaveForm(rad);
@@ -222,7 +222,7 @@ void tTVPRippleTable::MakeTable()
 			rippleform[w] = (tjs_int32)(s < 0 ? s - 0.5 : s + 0.5); // 1.11
 		}
 
-		// sin/cos ƒe[ƒuƒ‹‚Ì¶¬
+		// sin/cos ãƒ†ãƒ¼ãƒ–ãƒ«ã®ç”Ÿæˆ
 		cos_table = new tjs_int32[TVP_RIPPLE_DIR_PREC];
 		sin_table = new tjs_int32[TVP_RIPPLE_DIR_PREC];
 		for(w = 0; w < TVP_RIPPLE_DIR_PREC; w++)
@@ -236,8 +236,8 @@ void tTVPRippleTable::MakeTable()
 			sin_table[w] = (tjs_int32)(v < 0 ? v - 0.5 : v + 0.5); // 1.11
 		}
 
-		// DriftMap ŒvZ
-		// float ‚ÅŒvZ‚·‚é‚ÆƒGƒ‰‚­’x‚¢‚Ì‚ÅŒÅ’è¬”“_‚ÅŒvZ‚·‚é
+		// DriftMap è¨ˆç®—
+		// float ã§è¨ˆç®—ã™ã‚‹ã¨ã‚¨ãƒ©ãé…ã„ã®ã§å›ºå®šå°æ•°ç‚¹ã§è¨ˆç®—ã™ã‚‹
 		tjs_int drift, dir;
 		tjs_int ripplewidth_step = RippleWidth * TVP_RIPPLE_DIR_PREC;
 		for(drift = 0; drift < MaxDrift*TVP_RIPPLE_DRIFT_PREC; drift ++)
@@ -286,7 +286,7 @@ void tTVPRippleTable::Clear()
 
 
 //---------------------------------------------------------------------------
-// ƒLƒƒƒbƒVƒ…ŠÇ—
+// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ç®¡ç†
 //---------------------------------------------------------------------------
 #define TVP_RIPPLE_TABLE_MAX_CACHE 4
 //---------------------------------------------------------------------------
@@ -297,12 +297,12 @@ static tTVPRippleTable *TVPGetRippleTable
 	(tjs_int width, tjs_int height, tjs_int centerx, tjs_int centery,
 		tjs_int ripplewidth, float roundness, tjs_int maxdrift)
 {
-	// ƒLƒƒƒbƒVƒ…‚Ì’†‚©‚çw’è‚³‚ê‚½ğŒ‚Ìƒf[ƒ^‚ğæ‚Á‚Ä‚­‚é
-	// ‚ ‚ê‚ÎƒLƒƒƒbƒVƒ…’†‚Å‚Ì—Dæ‡ˆÊ‚ğÅãˆÊ‚É‚µ‚Ä•Ô‚µA
-	// ‚»‚¤‚Å‚È‚¯‚ê‚Îƒf[ƒ^‚ğì¬‚µ‚ÄƒLƒƒƒbƒVƒ…‚ÌÅŒã‚Ìƒf[ƒ^‚ğíœ‚µA
-	// —Dæ‡ˆÊ‚Ìæ“ª‚É‘}“ü‚µ‚Ä•Ô‚·	
+	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®ä¸­ã‹ã‚‰æŒ‡å®šã•ã‚ŒãŸæ¡ä»¶ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–ã£ã¦ãã‚‹
+	// ã‚ã‚Œã°ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä¸­ã§ã®å„ªå…ˆé †ä½ã‚’æœ€ä¸Šä½ã«ã—ã¦è¿”ã—ã€
+	// ãã†ã§ãªã‘ã‚Œã°ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã—ã¦ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®æœ€å¾Œã®ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤ã—ã€
+	// å„ªå…ˆé †ä½ã®å…ˆé ­ã«æŒ¿å…¥ã—ã¦è¿”ã™	
 
-	// ƒLƒƒƒbƒVƒ…’†‚É‚ ‚é‚©
+	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä¸­ã«ã‚ã‚‹ã‹
 	tjs_int i;
 	for(i = 0; i < TVP_RIPPLE_TABLE_MAX_CACHE; i++)
 	{
@@ -318,9 +318,9 @@ static tTVPRippleTable *TVPGetRippleTable
 			table->GetRoundness() == roundness &&
 			table->GetMaxDrift() == maxdrift)
 		{
-			// ƒLƒƒƒbƒVƒ…’†‚ÉŒ©‚Â‚©‚Á‚½
+			// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä¸­ã«è¦‹ã¤ã‹ã£ãŸ
 
-			// ƒŠƒXƒg‚Ìæ“ª‚É‚à‚Á‚Ä‚­‚é
+			// ãƒªã‚¹ãƒˆã®å…ˆé ­ã«ã‚‚ã£ã¦ãã‚‹
 			if(i != 0)
 			{
 				memmove(TVPRippleTableCache + 1, TVPRippleTableCache,
@@ -328,15 +328,15 @@ static tTVPRippleTable *TVPGetRippleTable
 				TVPRippleTableCache[0] = table;
 			}
 
-			// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg‚µ‚Ä•Ô‚·
+			// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã¦è¿”ã™
 			table->AddRef();
 			return table;
 		}
 	}
 
-	// ƒLƒƒƒbƒVƒ…’†‚É‚ÍŒ©‚Â‚©‚ç‚È‚©‚Á‚½
+	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ä¸­ã«ã¯è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ
 
-	// ÅŒã‚Ì—v‘f‚ğíœ
+	// æœ€å¾Œã®è¦ç´ ã‚’å‰Šé™¤
 	if(TVPRippleTableCache[TVP_RIPPLE_TABLE_MAX_CACHE -1] != NULL)
 	{
 		tTVPRippleTable * table =
@@ -345,24 +345,24 @@ static tTVPRippleTable *TVPGetRippleTable
 		table->Release();
 	}
 
-	// ƒf[ƒ^‚ğì¬
+	// ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆ
 	tTVPRippleTable * table =
 		new tTVPRippleTable
 		(width, height, centerx, centery, ripplewidth, roundness, maxdrift);
 
-	// ƒŠƒXƒg‚Ìæ“ª‚É‘}“ü
+	// ãƒªã‚¹ãƒˆã®å…ˆé ­ã«æŒ¿å…¥
 	memmove(TVPRippleTableCache + 1, TVPRippleTableCache,
 		(TVP_RIPPLE_TABLE_MAX_CACHE -1) * sizeof(tTVPRippleTable *));
 	TVPRippleTableCache[0] = table;
 	table->AddRef();
 
-	// •Ô‚·
+	// è¿”ã™
 	return table;
 }
 //---------------------------------------------------------------------------
 static void TVPInitRippleTableCache()
 {
-	// ƒLƒƒƒbƒVƒ…‚Ì‰Šú‰»
+	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®åˆæœŸåŒ–
 	tjs_int i;
 	for(i = 0; i < TVP_RIPPLE_TABLE_MAX_CACHE; i++)
 	{
@@ -372,7 +372,7 @@ static void TVPInitRippleTableCache()
 //---------------------------------------------------------------------------
 static void TVPClearRippleTableCache()
 {
-	// ƒLƒƒƒbƒVƒ…‚ğƒNƒŠƒA
+	// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’ã‚¯ãƒªã‚¢
 	tjs_int i;
 	for(i = 0; i < TVP_RIPPLE_TABLE_MAX_CACHE; i++)
 	{
@@ -389,12 +389,12 @@ static void TVPClearRippleTableCache()
 
 
 //---------------------------------------------------------------------------
-// ‰‰ZŠÖ”ŒQ (TVPRippleTransform_????) ‚ÍA
-// E’uŠ·ƒ}ƒbƒvƒe[ƒuƒ‹‚ğ³•ûŒü‚ÉŒ©‚Ä‚¢‚­‚©‹t•ûŒü‚ÉŒ©‚Ä‚¢‚­‚© (_f _b ƒTƒtƒBƒbƒNƒX)
-// EC ƒo[ƒWƒ‡ƒ“‚Æ MMX/EMMX ƒAƒZƒ“ƒuƒ‰ƒo[ƒWƒ‡ƒ“ (_c _mmx _emmx ƒTƒtƒBƒbƒNƒX)
-// ‚Ì 6 ŒÂ‚ÆAã‰º¶‰E‚ğÜ‚è•Ô‚µ‚È‚ª‚ç‰æ–ÊŠO‚ğQÆ‚µ‚È‚¢‚æ‚¤‚ÉTd‚É
-// “]‘—‚·‚é C ŠÖ” (_e ƒTƒtƒBƒbƒNƒX) 4 ŒÂ‚©‚ç‚È‚é
-// E’uŠ·ƒ}ƒbƒv‚Ì y ‚ğ³‚É‚Æ‚é‚©•‰‚É‚Æ‚é‚© (_a _d ƒTƒtƒBƒbƒNƒX)
+// æ¼”ç®—é–¢æ•°ç¾¤ (TVPRippleTransform_????) ã¯ã€
+// ãƒ»ç½®æ›ãƒãƒƒãƒ—ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’æ­£æ–¹å‘ã«è¦‹ã¦ã„ãã‹é€†æ–¹å‘ã«è¦‹ã¦ã„ãã‹ (_f _b ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹)
+// ãƒ»C ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¨ MMX/EMMX ã‚¢ã‚»ãƒ³ãƒ–ãƒ©ãƒãƒ¼ã‚¸ãƒ§ãƒ³ (_c _mmx _emmx ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹)
+// ã® 6 å€‹ã¨ã€ä¸Šä¸‹å·¦å³ã‚’æŠ˜ã‚Šè¿”ã—ãªãŒã‚‰ç”»é¢å¤–ã‚’å‚ç…§ã—ãªã„ã‚ˆã†ã«æ…é‡ã«
+// è»¢é€ã™ã‚‹ C é–¢æ•° (_e ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹) 4 å€‹ã‹ã‚‰ãªã‚‹
+// ãƒ»ç½®æ›ãƒãƒƒãƒ—ã® y ã‚’æ­£ã«ã¨ã‚‹ã‹è² ã«ã¨ã‚‹ã‹ (_a _d ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹)
 //---------------------------------------------------------------------------
 #define TVP_RIPPLE_BLEND 	{ \
 		tjs_uint32 s1, s2, s1_; \
@@ -541,11 +541,11 @@ static void TVPRippleTransform_mmx_f(
 		pxor		mm0,			mm0
 
 		sub			num,			1
-																		// «ƒXƒŒƒbƒh
+																		// â†“ã‚¹ãƒ¬ãƒƒãƒ‰
 		cmp			num,			ebx
 		jng			pexit_mmx_f
 
-	ploop_mmx_f_1:	// ‚±‚Ìƒ‹[ƒv‚Å‚Í‚Q‚Â‚ÌƒXƒŒƒbƒh‚ğ“K“–‚ÉƒCƒ“ƒ^[ƒŠ[ƒu‚µ‚Ä‚¢‚é
+	ploop_mmx_f_1:	// ã“ã®ãƒ«ãƒ¼ãƒ—ã§ã¯ï¼’ã¤ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é©å½“ã«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒªãƒ¼ãƒ–ã—ã¦ã„ã‚‹
 		movzx		eax,			word ptr [ecx + ebx*2]				// 1
 		movzx		eax,			word ptr [esi + eax*2]				// 1
 		movsx		edx,			ah									// 1
@@ -760,7 +760,7 @@ static void TVPRippleTransform_emmx_f(
 		pxor		mm0,			mm0
 
 		sub			num,			1
-																		// «ƒXƒŒƒbƒh
+																		// â†“ã‚¹ãƒ¬ãƒƒãƒ‰
 		cmp			num,			ebx
 		jng			pexit_emmx_f
 
@@ -989,23 +989,23 @@ static void TVPInitRippleTransformFuncs()
 #ifndef _M_X64
 	if(cputype & TVP_CPU_HAS_MMX)
 	{
-		// MMX ‚ªg—p‰Â”\‚Èê‡
+		// MMX ãŒä½¿ç”¨å¯èƒ½ãªå ´åˆ
 		TVPRippleTransform_f = TVPRippleTransform_mmx_f;
 		TVPRippleTransform_b = TVPRippleTransform_mmx_b;
 	}
 
 	if((cputype & TVP_CPU_HAS_MMX) && (cputype & TVP_CPU_HAS_EMMX))
 	{
-		// MMX/EMMX ‚ªg—p‰Â”\‚Èê‡
-		// EMMX ƒo[ƒWƒ‡ƒ“‚Í MMX ƒo[ƒWƒ‡ƒ“‚É prefetch –½—ß‚ğ’Ç‰Á‚µ‚½‚¾‚¯‚¾‚ª
-		// ”÷–­‚É‘¬‚¢
+		// MMX/EMMX ãŒä½¿ç”¨å¯èƒ½ãªå ´åˆ
+		// EMMX ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯ MMX ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã« prefetch å‘½ä»¤ã‚’è¿½åŠ ã—ãŸã ã‘ã ãŒ
+		// å¾®å¦™ã«é€Ÿã„
 		TVPRippleTransform_f = TVPRippleTransform_emmx_f;
 		TVPRippleTransform_b = TVPRippleTransform_emmx_b;
 	}
 #endif
 	if(cputype & TVP_CPU_HAS_SSE2)
 	{
-		// SSE2 ‚ªg—p‰Â”\‚Èê‡
+		// SSE2 ãŒä½¿ç”¨å¯èƒ½ãªå ´åˆ
 		TVPRippleTransform_f = TVPRippleTransform_sse2_f;
 		TVPRippleTransform_b = TVPRippleTransform_sse2_b;
 	}
@@ -1107,37 +1107,37 @@ static void TVPRippleTransform_b_d_e(
 //---------------------------------------------------------------------------
 class tTVPRippleTransHandler : public iTVPDivisibleTransHandler
 {
-	//	'”g–ä' ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒNƒ‰ƒX‚ÌÀ‘•
+	//	'æ³¢ç´‹' ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…
 
-	tjs_int RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_int RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 		/*
-			iTVPDivisibleTransHandler ‚Í QÆƒJƒEƒ“ƒ^‚É‚æ‚éŠÇ—‚ğs‚¤
+			iTVPDivisibleTransHandler ã¯ å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã«ã‚ˆã‚‹ç®¡ç†ã‚’è¡Œã†
 		*/
 
 protected:
-	tjs_uint64 StartTick; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠJn‚µ‚½ tick count
-	tjs_uint64 Time; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚É—v‚·‚éŠÔ
-	tTVPLayerType LayerType; // ƒŒƒCƒ„‚Ìƒ^ƒCƒv
-	tjs_int Width; // ˆ—‚·‚é‰æ‘œ‚Ì•
-	tjs_int Height; // ˆ—‚·‚é‰æ‘œ‚Ì‚‚³
-	tjs_int64 CurTime; // Œ»İ‚Ì tick count
-	tjs_int BlendRatio; // ƒuƒŒƒ“ƒh”ä
-	tjs_int Phase; // ˆÊ‘Š
-	tjs_int Drift; // —h‚ê
-	bool First; // ˆê”ÔÅ‰‚ÌŒÄ‚Ño‚µ‚©‚Ç‚¤‚©
+	tjs_uint64 StartTick; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã—ãŸ tick count
+	tjs_uint64 Time; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã«è¦ã™ã‚‹æ™‚é–“
+	tTVPLayerType LayerType; // ãƒ¬ã‚¤ãƒ¤ã®ã‚¿ã‚¤ãƒ—
+	tjs_int Width; // å‡¦ç†ã™ã‚‹ç”»åƒã®å¹…
+	tjs_int Height; // å‡¦ç†ã™ã‚‹ç”»åƒã®é«˜ã•
+	tjs_int64 CurTime; // ç¾åœ¨ã® tick count
+	tjs_int BlendRatio; // ãƒ–ãƒ¬ãƒ³ãƒ‰æ¯”
+	tjs_int Phase; // ä½ç›¸
+	tjs_int Drift; // æºã‚Œ
+	bool First; // ä¸€ç•ªæœ€åˆã®å‘¼ã³å‡ºã—ã‹ã©ã†ã‹
 
-	tjs_int DriftCarePixels; // üˆÍ‚ÌÜ‚è•Ô‚µ‚É’ˆÓ‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢ƒsƒNƒZƒ‹”
+	tjs_int DriftCarePixels; // å‘¨å›²ã®æŠ˜ã‚Šè¿”ã—ã«æ³¨æ„ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ãƒ”ã‚¯ã‚»ãƒ«æ•°
 
-	tjs_int CenterX; // ’†S X À•W
-	tjs_int CenterY; // ’†S Y À•W
-	tjs_int RippleWidth; // ”g–ä‚Ì• (16, 32, 64, 128 ‚Ì‚¢‚¸‚ê‚©)
-	float Roundness; // ”g–ä‚Ìc/‰¡”ä
-	float Speed; // ”g–ä‚Ì“®‚­Šp‘¬“x
-	tjs_int MaxDrift; // —h‚ê‚ÌÅ‘å•(ƒsƒNƒZƒ‹’PˆÊ) (127‚Ü‚Å)
+	tjs_int CenterX; // ä¸­å¿ƒ X åº§æ¨™
+	tjs_int CenterY; // ä¸­å¿ƒ Y åº§æ¨™
+	tjs_int RippleWidth; // æ³¢ç´‹ã®å¹… (16, 32, 64, 128 ã®ã„ãšã‚Œã‹)
+	float Roundness; // æ³¢ç´‹ã®ç¸¦/æ¨ªæ¯”
+	float Speed; // æ³¢ç´‹ã®å‹•ãè§’é€Ÿåº¦
+	tjs_int MaxDrift; // æºã‚Œã®æœ€å¤§å¹…(ãƒ”ã‚¯ã‚»ãƒ«å˜ä½) (127ã¾ã§)
 
-	const tjs_uint16 *CurDriftMap; // Œ»İ•`‰æ’†‚Ì DirftMap
+	const tjs_uint16 *CurDriftMap; // ç¾åœ¨æç”»ä¸­ã® DirftMap
 
-	tTVPRippleTable *Table; // ’uŠ·ƒ}ƒbƒv‚È‚Ç‚Ìƒe[ƒuƒ‹
+	tTVPRippleTable *Table; // ç½®æ›ãƒãƒƒãƒ—ãªã©ã®ãƒ†ãƒ¼ãƒ–ãƒ«
 
 #ifdef TVP_DEBUG_RIPPLE_SHOW_UPDATE_COUNT
 	tjs_int UpdateCount;
@@ -1184,16 +1184,16 @@ public:
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -1206,8 +1206,8 @@ public:
 			/*in*/iTVPSimpleOptionProvider *options // option provider
 		)
 	{
-		// iTVPBaseTransHandler ‚Ì SetOption
-		// ‚Æ‚­‚É‚â‚é‚±‚Æ‚È‚µ
+		// iTVPBaseTransHandler ã® SetOption
+		// ã¨ãã«ã‚„ã‚‹ã“ã¨ãªã—
 		return TJS_S_OK;
 	}
 
@@ -1223,22 +1223,22 @@ public:
 			iTVPScanLineProvider * src1,
 			iTVPScanLineProvider * src2)
 	{
-		*dest = src2; // í‚ÉÅI‰æ‘œ‚Í src2
+		*dest = src2; // å¸¸ã«æœ€çµ‚ç”»åƒã¯ src2
 		return TJS_S_OK;
 	}
 };
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::StartProcess(tjs_uint64 tick)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ‚É‚Â‚«A‚Ü‚¸Å‰‚É StartProcess ‚ªŒÄ‚Î‚ê‚é
-	// ‚»‚Ì‚ ‚Æ Process ‚ª•¡”‰ñŒÄ‚Î‚ê‚é ( —Ìˆæ‚ğ•ªŠ„ˆ—‚µ‚Ä‚¢‚éê‡ )
-	// ÅŒã‚É EndProcess ‚ªŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãã€ã¾ãšæœ€åˆã« StartProcess ãŒå‘¼ã°ã‚Œã‚‹
+	// ãã®ã‚ã¨ Process ãŒè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹ ( é ˜åŸŸã‚’åˆ†å‰²å‡¦ç†ã—ã¦ã„ã‚‹å ´åˆ )
+	// æœ€å¾Œã« EndProcess ãŒå‘¼ã°ã‚Œã‚‹
 
 	if(First)
 	{
-		// Å‰‚ÌÀs
+		// æœ€åˆã®å®Ÿè¡Œ
 		First = false;
 		StartTick = tick;
 #ifdef TVP_DEBUG_RIPPLE_SHOW_UPDATE_COUNT
@@ -1246,7 +1246,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::StartProcess(tjs_uint64 tick)
 #endif
 	}
 
-	// ‰æ‘œ‰‰Z‚É•K—v‚ÈŠeƒpƒ‰ƒ[ƒ^‚ğŒvZ
+	// ç”»åƒæ¼”ç®—ã«å¿…è¦ãªå„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨ˆç®—
 	CurTime = (tick - StartTick);
 
 	// BlendRatio
@@ -1254,7 +1254,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::StartProcess(tjs_uint64 tick)
 	if(BlendRatio > 255) BlendRatio = 255;
 
 	// Phase
-	// Šp‘¬“x‚ª Speed (rad/sec) ‚Å—^‚¦‚ç‚ê‚Ä‚¢‚é
+	// è§’é€Ÿåº¦ãŒ Speed (rad/sec) ã§ä¸ãˆã‚‰ã‚Œã¦ã„ã‚‹
 	Phase = (int)(Speed * ((1.0/(M_PI*2))*(1.0/1000.0)) * CurTime * RippleWidth) % RippleWidth;
 	if(Phase < 0) Phase = 0;
 	Phase = RippleWidth - Phase - 1;
@@ -1266,7 +1266,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::StartProcess(tjs_uint64 tick)
 	if(Drift >= MaxDrift * TVP_RIPPLE_DRIFT_PREC) Drift = MaxDrift * TVP_RIPPLE_DRIFT_PREC - 1;
 
 	DriftCarePixels = (int)(Drift / TVP_RIPPLE_DRIFT_PREC) + 1;
-	if(DriftCarePixels&1) DriftCarePixels ++; // ˆê‰‹ô”‚ÉƒAƒ‰ƒCƒ“
+	if(DriftCarePixels&1) DriftCarePixels ++; // ä¸€å¿œå¶æ•°ã«ã‚¢ãƒ©ã‚¤ãƒ³
 
 	// CurDriftMap
 	CurDriftMap = Table->GetDriftMap(Drift, Phase);
@@ -1280,9 +1280,9 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::StartProcess(tjs_uint64 tick)
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::EndProcess()
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì‰æ–ÊXVˆê‰ñ•ª‚ªI‚í‚é‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®ç”»é¢æ›´æ–°ä¸€å›åˆ†ãŒçµ‚ã‚ã‚‹ã”ã¨ã«å‘¼ã°ã‚Œã‚‹
 
-	if(BlendRatio == 255) return TJS_S_FALSE; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“I—¹
+	if(BlendRatio == 255) return TJS_S_FALSE; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³çµ‚äº†
 
 	return TJS_S_TRUE;
 }
@@ -1290,13 +1290,13 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::EndProcess()
 tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 			tTVPDivisibleData *data)
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌŠe—Ìˆæ‚²‚Æ‚ÉŒÄ‚Î‚ê‚é
-	// ‹g—¢‹g—¢‚Í‰æ–Ê‚ğXV‚·‚é‚Æ‚«‚É‚¢‚­‚Â‚©‚Ì—Ìˆæ‚É•ªŠ„‚µ‚È‚ª‚çˆ—‚ğs‚¤‚Ì‚Å
-	// ‚±‚Ìƒƒ\ƒbƒh‚Í’ÊíA‰æ–ÊXVˆê‰ñ‚É‚Â‚«•¡”‰ñŒÄ‚Î‚ê‚é
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®å„é ˜åŸŸã”ã¨ã«å‘¼ã°ã‚Œã‚‹
+	// å‰é‡Œå‰é‡Œã¯ç”»é¢ã‚’æ›´æ–°ã™ã‚‹ã¨ãã«ã„ãã¤ã‹ã®é ˜åŸŸã«åˆ†å‰²ã—ãªãŒã‚‰å‡¦ç†ã‚’è¡Œã†ã®ã§
+	// ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯é€šå¸¸ã€ç”»é¢æ›´æ–°ä¸€å›ã«ã¤ãè¤‡æ•°å›å‘¼ã°ã‚Œã‚‹
 
-	// data ‚É‚Í—Ìˆæ‚â‰æ‘œ‚ÉŠÖ‚·‚éî•ñ‚ª“ü‚Á‚Ä‚¢‚é
+	// data ã«ã¯é ˜åŸŸã‚„ç”»åƒã«é–¢ã™ã‚‹æƒ…å ±ãŒå…¥ã£ã¦ã„ã‚‹
 
-	// •Ï”‚Ì€”õ
+	// å¤‰æ•°ã®æº–å‚™
 	tjs_int destxofs = data->DestLeft - data->Left;
 //	tjs_int destyofs = data->DestTop - data->Top;
 
@@ -1319,9 +1319,9 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 	if(TJS_FAILED(data->Src2->GetPitchBytes(&src2pitch)))
 		return TJS_E_FAIL;
 
-	if(src1pitch != src2pitch) return TJS_E_FAIL; // —¼•û‚Ìpitch‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+	if(src1pitch != src2pitch) return TJS_E_FAIL; // ä¸¡æ–¹ã®pitchãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
-	// ƒ‰ƒCƒ“‚²‚Æ‚Éˆ—
+	// ãƒ©ã‚¤ãƒ³ã”ã¨ã«å‡¦ç†
 	tjs_int h = data->Height;
 	tjs_int y = data->Top;
 	while(h--)
@@ -1330,10 +1330,10 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 
 		if(y < DriftCarePixels || y >= Height - DriftCarePixels)
 		{
-			// ã‰º‚Ì‚·‚İ‚Å‚Í‚İo‚·‰Â”\«‚ª‚ ‚é‚Ì‚Å
-			// Ü‚è•Ô‚µ“]‘—‚ğs‚¤
+			// ä¸Šä¸‹ã®ã™ã¿ã§ã¯ã¿å‡ºã™å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§
+			// æŠ˜ã‚Šè¿”ã—è»¢é€ã‚’è¡Œã†
 
-			// ¶’[ ` CenterX
+			// å·¦ç«¯ ï½ CenterX
 			l = 0;
 			r = CenterX;
 			if(Clip(l, r, data->Left, data->Left + data->Width))
@@ -1356,7 +1356,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				}
 			}
 
-			// CenterX ` ‰E’[
+			// CenterX ï½ å³ç«¯
 			l = CenterX;
 			r = Width;
 			if(Clip(l, r, data->Left, data->Left + data->Width))
@@ -1382,7 +1382,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 		}
 		else
 		{
-			// ¶’[ ` CenterX
+			// å·¦ç«¯ ï½ CenterX
 			l = 0;
 			r = CenterX;
 			if(Clip(l, r, data->Left, data->Left + data->Width))
@@ -1391,8 +1391,8 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				ll = 0, rr = DriftCarePixels;
 				if(Clip(ll, rr, l, r))
 				{
-					// ‚±‚Ì ll ` rr ‚Å•\‚³‚ê‚é¶’[‚Í ¶’[‚É‚Í‚İo‚·‰Â”\«‚ª‚ ‚é
-					// ‚Ì‚ÅÜ‚è•Ô‚µ“]‘—‚ğ‚³‚¹‚é
+					// ã“ã® ll ï½ rr ã§è¡¨ã•ã‚Œã‚‹å·¦ç«¯ã¯ å·¦ç«¯ã«ã¯ã¿å‡ºã™å¯èƒ½æ€§ãŒã‚ã‚‹
+					// ã®ã§æŠ˜ã‚Šè¿”ã—è»¢é€ã‚’ã•ã›ã‚‹
 					if(y < CenterY)
 					{
 						TVPRippleTransform_b_a_e(
@@ -1414,7 +1414,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				ll = DriftCarePixels; rr = r;
 				if(Clip(ll, rr, l, r))
 				{
-					// ‚±‚±‚Í‚Í‚İo‚³‚È‚¢
+					// ã“ã“ã¯ã¯ã¿å‡ºã•ãªã„
 					if(y < CenterY)
 					{
 						TVPRippleTransform_b(
@@ -1442,7 +1442,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				}
 			}
 
-			// CenterX ` ‰E’[
+			// CenterX ï½ å³ç«¯
 			l = CenterX;
 			r = Width;
 			if(Clip(l, r, data->Left, data->Left + data->Width))
@@ -1451,7 +1451,7 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				ll = l, rr = Width - DriftCarePixels;
 				if(Clip(ll, rr, l, r))
 				{
-					// ‚±‚±‚Í‚Í‚İo‚³‚È‚¢
+					// ã“ã“ã¯ã¯ã¿å‡ºã•ãªã„
 					if(y < CenterY)
 					{
 						TVPRippleTransform_f(
@@ -1481,8 +1481,8 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 				ll = Width - DriftCarePixels, rr = r;
 				if(Clip(ll, rr, l, r))
 				{
-					// ‚±‚Ì ll ` rr ‚Å•\‚³‚ê‚é‰E’[‚Í ‰E’[‚É‚Í‚İo‚·‰Â”\«‚ª‚ ‚é
-					// ‚Ì‚ÅÜ‚è•Ô‚µ“]‘—‚ğ‚³‚¹‚é
+					// ã“ã® ll ï½ rr ã§è¡¨ã•ã‚Œã‚‹å³ç«¯ã¯ å³ç«¯ã«ã¯ã¿å‡ºã™å¯èƒ½æ€§ãŒã‚ã‚‹
+					// ã®ã§æŠ˜ã‚Šè¿”ã—è»¢é€ã‚’ã•ã›ã‚‹
 					if(y < CenterY)
 					{
 						TVPRippleTransform_f_a_e(
@@ -1518,23 +1518,23 @@ tjs_error TJS_INTF_METHOD tTVPRippleTransHandler::Process(
 //---------------------------------------------------------------------------
 class tTVPRippleTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_uint RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 public:
 	tTVPRippleTransHandlerProvider() { RefCount = 1; }
 	~tTVPRippleTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -1545,7 +1545,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì–¼‘O‚ğ•Ô‚·
+		// ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®åå‰ã‚’è¿”ã™
 		if(name) *name = TJS_W("ripple");
 		return TJS_S_OK;
 	}
@@ -1569,10 +1569,10 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 ‚Æ src2 ‚ÌƒTƒCƒY‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+			return TJS_E_FAIL; // src1 ã¨ src2 ã®ã‚µã‚¤ã‚ºãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
 
-		// ƒIƒvƒVƒ‡ƒ“‚ğ“¾‚é
+		// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
 		tTJSVariant tmp;
 		tjs_uint64 time;
 
@@ -1581,14 +1581,14 @@ public:
 		float roundness = 1.0;
 		float speed = 6;
 		tjs_int maxdrift = 24;
-//		tjs_int rippletype = 0; // ƒ^ƒCƒv
+//		tjs_int rippletype = 0; // ã‚¿ã‚¤ãƒ—
 
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time ‘®«‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢
+			return TJS_E_FAIL; // time å±æ€§ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ‚ ‚Ü‚è¬‚³‚È”’l‚ğw’è‚·‚é‚Æ–â‘è‚ª‹N‚«‚é‚Ì‚Å
+		if(time < 2) time = 2; // ã‚ã¾ã‚Šå°ã•ãªæ•°å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨å•é¡ŒãŒèµ·ãã‚‹ã®ã§
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("centerx"), &tmp)))
 			if(tmp.Type() != tvtVoid) centerx = (tjs_int)tmp;
@@ -1626,7 +1626,7 @@ public:
 		if((tjs_uint)maxdrift >= src1w || (tjs_uint)maxdrift >= src1h)
 			TVPThrowExceptionMessage(TJS_W("maxdrift must be lesser than both image width and height"));
 
-		// ƒIƒuƒWƒFƒNƒg‚ğì¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 		*handler = new tTVPRippleTransHandler(time, layertype,
 			src1w, src1h, centerx, centery,
 			ripplewidth, roundness, speed, maxdrift);
@@ -1638,23 +1638,23 @@ public:
 //---------------------------------------------------------------------------
 void RegisterRippleTransHandlerProvider()
 {
-	TVPInitRippleTableCache(); // ƒe[ƒuƒ‹‚ÌƒLƒƒƒbƒVƒ…‚Ì‰Šú‰»
+	TVPInitRippleTableCache(); // ãƒ†ãƒ¼ãƒ–ãƒ«ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®åˆæœŸåŒ–
 
-	TVPInitRippleTransformFuncs(); // ‰‰ZŠÖ”‚Ì‰Šú‰»
+	TVPInitRippleTransformFuncs(); // æ¼”ç®—é–¢æ•°ã®åˆæœŸåŒ–
 
-	// TVPAddTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^‚·‚é
+	// TVPAddTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²ã™ã‚‹
 	RippleTransHandlerProvider = new tTVPRippleTransHandlerProvider();
 	TVPAddTransHandlerProvider(RippleTransHandlerProvider);
 }
 //---------------------------------------------------------------------------
 void UnregisterRippleTransHandlerProvider()
 {
-	// TVPRemoveTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^–•Á‚·‚é
+	// TVPRemoveTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²æŠ¹æ¶ˆã™ã‚‹
 	TVPRemoveTransHandlerProvider(RippleTransHandlerProvider);
 	RippleTransHandlerProvider->Release();
 
-	TVPClearRippleTableCache(); // ’uŠ·ƒ}ƒbƒv‚È‚Ç‚Ìƒe[ƒuƒ‹‚ÌƒLƒƒƒbƒVƒ…‚ÌƒNƒŠƒA
+	TVPClearRippleTableCache(); // ç½®æ›ãƒãƒƒãƒ—ãªã©ã®ãƒ†ãƒ¼ãƒ–ãƒ«ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®ã‚¯ãƒªã‚¢
 }
 //---------------------------------------------------------------------------

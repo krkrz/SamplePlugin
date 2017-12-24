@@ -2,7 +2,7 @@
 #include <windows.h>
 
 #include "tp_stub.h"
-	// tp_stub.h ‚Æ tp_stub.cpp ‚Í•K‚¸ƒvƒƒWƒFƒNƒg‚É’Ç‰Á‚·‚é
+	// tp_stub.h ã¨ tp_stub.cpp ã¯å¿…ãšãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«è¿½åŠ ã™ã‚‹
 
 #include "wave.h"
 #include "mosaic.h"
@@ -14,21 +14,21 @@
 #pragma argsused
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
-	// DLL ƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg
+	// DLL ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆ
 	return 1;
 }
 //---------------------------------------------------------------------------
-// V2Link ‚Í DLL ‚ªƒŠƒ“ƒN‚³‚ê‚é‚Æ‚«‚ÉÀs‚³‚ê‚é
+// V2Link ã¯ DLL ãŒãƒªãƒ³ã‚¯ã•ã‚Œã‚‹ã¨ãã«å®Ÿè¡Œã•ã‚Œã‚‹
 extern "C" __declspec(dllexport) HRESULT _stdcall V2Link(iTVPFunctionExporter *exporter)
 {
-	// ƒXƒ^ƒu‚Ì‰Šú‰»
-	TVPInitImportStub(exporter); // •K‚¸‚±‚ê‚Í‹Lq
+	// ã‚¹ã‚¿ãƒ–ã®åˆæœŸåŒ–
+	TVPInitImportStub(exporter); // å¿…ãšã“ã‚Œã¯è¨˜è¿°
 	/*
-		TVPInitImpotStub ‚ğÀs‚µ‚½Œã‚Í‹g—¢‹g—¢“à•”‚ÌŠeŠÖ”‚â tTJSVariant “™‚Ì
-		Šî–{“I‚ÈŒ^‚ªg—p‰Â”\‚É‚È‚éB
+		TVPInitImpotStub ã‚’å®Ÿè¡Œã—ãŸå¾Œã¯å‰é‡Œå‰é‡Œå†…éƒ¨ã®å„é–¢æ•°ã‚„ tTJSVariant ç­‰ã®
+		åŸºæœ¬çš„ãªå‹ãŒä½¿ç”¨å¯èƒ½ã«ãªã‚‹ã€‚
 	*/
 
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚Ì“o˜^
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã®ç™»éŒ²
 	RegisterWaveTransHandlerProvider();
 	RegisterMosaicTransHandlerProvider();
 	RegisterTurnTransHandlerProvider();
@@ -38,34 +38,34 @@ extern "C" __declspec(dllexport) HRESULT _stdcall V2Link(iTVPFunctionExporter *e
 	return S_OK;
 }
 //---------------------------------------------------------------------------
-// V2Unlink ‚Í DLL ‚ªƒAƒ“ƒŠƒ“ƒN‚³‚ê‚é‚Æ‚«‚ÉÀs‚³‚ê‚é
+// V2Unlink ã¯ DLL ãŒã‚¢ãƒ³ãƒªãƒ³ã‚¯ã•ã‚Œã‚‹ã¨ãã«å®Ÿè¡Œã•ã‚Œã‚‹
 extern "C" __declspec(dllexport) HRESULT _stdcall V2Unlink()
 {
-	// ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚Ì“o˜^íœ
+	// ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã®ç™»éŒ²å‰Šé™¤
 	UnregisterWaveTransHandlerProvider();
 	UnregisterMosaicTransHandlerProvider();
 	UnregisterTurnTransHandlerProvider();
 	UnregisterRotateTransHandlerProvider();
 	UnregisterRippleTransHandlerProvider();
 
-	// ƒXƒ^ƒu‚Ìg—pI—¹
-	TVPUninitImportStub(); // •K‚¸‚±‚ê‚Í‹Lq
+	// ã‚¹ã‚¿ãƒ–ã®ä½¿ç”¨çµ‚äº†
+	TVPUninitImportStub(); // å¿…ãšã“ã‚Œã¯è¨˜è¿°
 	/*
-		TVPUninitImpotStub ‚Í TVPInitImportStub ‚ÅŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
-		‚Ì‚Å•K‚¸‹Lq‚·‚éB
+		TVPUninitImpotStub ã¯ TVPInitImportStub ã§ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
+		ã®ã§å¿…ãšè¨˜è¿°ã™ã‚‹ã€‚
 	*/
 	return S_OK;
 }
 //---------------------------------------------------------------------------
 /*
-	V2Link ‚Æ V2Unlink ‚Í DLL ‚©‚çƒGƒNƒXƒ|[ƒg‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB
-	]‚Á‚ÄA.def ƒtƒ@ƒCƒ‹‚ğì¬‚µ
+	V2Link ã¨ V2Unlink ã¯ DLL ã‹ã‚‰ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+	å¾“ã£ã¦ã€.def ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œæˆã—
 
 EXPORTS
 	V2Link
 	V2Unlink
 
-	‚Æ‹Lq‚µ‚ÄƒvƒƒWƒFƒNƒg‚É’Ç‰Á‚·‚é•K—v‚ª‚ ‚éB
+	ã¨è¨˜è¿°ã—ã¦ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã«è¿½åŠ ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 */
 //---------------------------------------------------------------------------
 

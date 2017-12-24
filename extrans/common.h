@@ -6,8 +6,8 @@
 //---------------------------------------------------------------------------
 static inline bool Clip(tjs_int &l, tjs_int &r, tjs_int cl, tjs_int cr)
 {
-	// ü•ª l <-> r (l<r) ‚ğA cl <-> cr (cl<cr) ‚ÅƒNƒŠƒbƒsƒ“ƒO‚µAŒ‹‰Ê‚ğ l r ‚É•Ô‚·
-	// ƒNƒŠƒbƒsƒ“ƒO‚µ‚½Œ‹‰ÊAü•ª l - r ‚ªc‚ê‚Î^AÁ–Å‚·‚ê‚Î‹U‚ğ•Ô‚·
+	// ç·šåˆ† l <-> r (l<r) ã‚’ã€ cl <-> cr (cl<cr) ã§ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°ã—ã€çµæœã‚’ l r ã«è¿”ã™
+	// ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°ã—ãŸçµæœã€ç·šåˆ† l - r ãŒæ®‹ã‚Œã°çœŸã€æ¶ˆæ»…ã™ã‚Œã°å½ã‚’è¿”ã™
 	if(l < cl) l = cl;
 	if(r > cr) r = cr;
 	if(l >= r) return false;
@@ -16,7 +16,7 @@ static inline bool Clip(tjs_int &l, tjs_int &r, tjs_int cl, tjs_int cr)
 //---------------------------------------------------------------------------
 static inline tjs_uint32 Blend(tjs_uint32 a, tjs_uint32 b, tjs_int opa)
 {
-	// a ‚Æ b ‚ğ¬‡”ä opa ‚Å¬‡‚µ‚Ä•Ô‚· ( opa = 0 ` 255, 0 = a, 255 = b )
+	// a ã¨ b ã‚’æ··åˆæ¯” opa ã§æ··åˆã—ã¦è¿”ã™ ( opa = 0 ï½ 255, 0 = a, 255 = b )
 	tjs_uint32 ret;
 	tjs_uint32 tmp;
 
@@ -31,7 +31,7 @@ static inline tjs_uint32 Blend(tjs_uint32 a, tjs_uint32 b, tjs_int opa)
 //---------------------------------------------------------------------------
 static inline void Swap_tjs_int(tjs_int &a, tjs_int &b)
 {
-	// a ‚Æ b ‚ğ“ü‚ê‘Ö‚¦‚é
+	// a ã¨ b ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 	tjs_int tmp = a;
 	a = b;
 	b = tmp;

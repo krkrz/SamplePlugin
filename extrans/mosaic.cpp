@@ -9,35 +9,35 @@
 
 //---------------------------------------------------------------------------
 /*
-	'���U�C�N' �g�����W�V����
-	��`���U�C�N�ɂ��g�����W�V����
-	���̃g�����W�V�����͓]���悪���������Ă����(�v����Ƀg�����W�V�������s��
-	���C���� type �� ltOpaque �ȊO�̏ꍇ)�A����ɓ��ߏ��������ł��Ȃ��̂�
-	����
+	'モザイク' トランジション
+	矩形モザイクによるトランジション
+	このトランジションは転送先がαを持っていると(要するにトランジションを行う
+	レイヤの type が ltOpaque 以外の場合)、正常に透過情報を処理できないので
+	注意
 */
 //---------------------------------------------------------------------------
 class tTVPMosaicTransHandler : public iTVPDivisibleTransHandler
 {
-	//	'���U�C�N' �g�����W�V�����n���h���N���X�̎���
+	//	'モザイク' トランジションハンドラクラスの実装
 
-	tjs_int RefCount; // �Q�ƃJ�E���^
+	tjs_int RefCount; // 参照カウンタ
 		/*
-			iTVPDivisibleTransHandler �� �Q�ƃJ�E���^�ɂ��Ǘ����s��
+			iTVPDivisibleTransHandler は 参照カウンタによる管理を行う
 		*/
 
 protected:
-	tjs_uint64 StartTick; // �g�����W�V�������J�n���� tick count
-	tjs_uint64 Time; // �g�����W�V�����ɗv���鎞��
-	tjs_uint64 HalfTime; // �g�����W�V�����ɗv���鎞�� / 2
-	tjs_uint64 CurTime; // ���݂̎���
-	tjs_int Width; // ��������摜�̕�
-	tjs_int Height; // ��������摜�̍���
-	tjs_int CurOfsX; // �u���b�N�I�t�Z�b�g X
-	tjs_int CurOfsY; // �u���b�N�I�t�Z�b�g Y
-	tjs_int MaxBlockSize; // �ő�̃u���b�N��
-	tjs_int CurBlockSize; // ���݂̃u���b�N��
-	tjs_int BlendRatio; // �u�����h��
-	bool First; // ��ԍŏ��̌Ăяo�����ǂ���
+	tjs_uint64 StartTick; // トランジションを開始した tick count
+	tjs_uint64 Time; // トランジションに要する時間
+	tjs_uint64 HalfTime; // トランジションに要する時間 / 2
+	tjs_uint64 CurTime; // 現在の時間
+	tjs_int Width; // 処理する画像の幅
+	tjs_int Height; // 処理する画像の高さ
+	tjs_int CurOfsX; // ブロックオフセット X
+	tjs_int CurOfsY; // ブロックオフセット Y
+	tjs_int MaxBlockSize; // 最大のブロック幅
+	tjs_int CurBlockSize; // 現在のブロック幅
+	tjs_int BlendRatio; // ブレンド比
+	bool First; // 一番最初の呼び出しかどうか
 
 public:
 	tTVPMosaicTransHandler(tjs_uint64 time, tjs_int width, tjs_int height,
@@ -60,16 +60,16 @@ public:
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler �� AddRef
-		// �Q�ƃJ�E���^���C���N�������g
+		// iTVPBaseTransHandler の AddRef
+		// 参照カウンタをインクリメント
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler �� Release
-		// �Q�ƃJ�E���^���f�N�������g���A0 �ɂȂ�Ȃ�� delete this
+		// iTVPBaseTransHandler の Release
+		// 参照カウンタをデクリメントし、0 になるならば delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -82,8 +82,8 @@ public:
 			/*in*/iTVPSimpleOptionProvider *options // option provider
 		)
 	{
-		// iTVPBaseTransHandler �� SetOption
-		// �Ƃ��ɂ�邱�ƂȂ�
+		// iTVPBaseTransHandler の SetOption
+		// とくにやることなし
 		return TJS_S_OK;
 	}
 
@@ -99,27 +99,27 @@ public:
 			iTVPScanLineProvider * src1,
 			iTVPScanLineProvider * src2)
 	{
-		*dest = src2; // ��ɍŏI�摜�� src2
+		*dest = src2; // 常に最終画像は src2
 		return TJS_S_OK;
 	}
 };
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::StartProcess(tjs_uint64 tick)
 {
-	// �g�����W�V�����̉�ʍX�V��񂲂ƂɌĂ΂��
+	// トランジションの画面更新一回ごとに呼ばれる
 
-	// �g�����W�V�����̉�ʍX�V���ɂ��A�܂��ŏ��� StartProcess ���Ă΂��
-	// ���̂��� Process ��������Ă΂�� ( �̈�𕪊��������Ă���ꍇ )
-	// �Ō�� EndProcess ���Ă΂��
+	// トランジションの画面更新一回につき、まず最初に StartProcess が呼ばれる
+	// そのあと Process が複数回呼ばれる ( 領域を分割処理している場合 )
+	// 最後に EndProcess が呼ばれる
 
 	if(First)
 	{
-		// �ŏ��̎��s
+		// 最初の実行
 		First = false;
 		StartTick = tick;
 	}
 
-	// �摜���Z�ɕK�v�ȃp�����[�^���v�Z
+	// 画像演算に必要なパラメータを計算
 	tjs_int64 t = CurTime = (tick - StartTick);
 	if(CurTime > Time) CurTime = Time;
 	if(t >= HalfTime) t = Time - t;
@@ -130,7 +130,7 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::StartProcess(tjs_uint64 tick)
 	BlendRatio = CurTime * 255 / Time;
 	if(BlendRatio > 255) BlendRatio = 255;
 
-	// ���S�̃u���b�N��{���ɒ��S�Ɏ����Ă�����悤�� CurOfsX �� CurOfsY �𒲐�
+	// 中心のブロックを本当に中心に持ってこられるように CurOfsX と CurOfsY を調整
 	int x = Width / 2;
 	int y = Height / 2;
 	x /= CurBlockSize;
@@ -147,9 +147,9 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::StartProcess(tjs_uint64 tick)
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::EndProcess()
 {
-	// �g�����W�V�����̉�ʍX�V��񕪂��I��邲�ƂɌĂ΂��
+	// トランジションの画面更新一回分が終わるごとに呼ばれる
 
-	if(BlendRatio == 255) return TJS_S_FALSE; // �g�����W�V�����I��
+	if(BlendRatio == 255) return TJS_S_FALSE; // トランジション終了
 
 	return TJS_S_TRUE;
 }
@@ -157,20 +157,20 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::EndProcess()
 tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 			tTVPDivisibleData *data)
 {
-	// �g�����W�V�����̊e�̈悲�ƂɌĂ΂��
-	// �g���g���͉�ʂ��X�V����Ƃ��ɂ������̗̈�ɕ������Ȃ��珈�����s���̂�
-	// ���̃��\�b�h�͒ʏ�A��ʍX�V���ɂ�������Ă΂��
+	// トランジションの各領域ごとに呼ばれる
+	// 吉里吉里は画面を更新するときにいくつかの領域に分割しながら処理を行うので
+	// このメソッドは通常、画面更新一回につき複数回呼ばれる
 
-	// data �ɂ͗̈��摜�Ɋւ����񂪓����Ă���
+	// data には領域や画像に関する情報が入っている
 
-	// data->Left, data->Top, data->Width, data->Height �Ŏ�������`��
-	// �̂ݓ]������K�v������B�����ōs�������͈ȉ��̒ʂ�B
-	// 1: ���̓]����`�Ɋ܂܂�郂�U�C�N�̃u���b�N�͈̔͂𔻒肷��
-	// 2: �܂��Ӌ��̃u���b�N�ɑ΂��ē]����`�Ƃ̐ϋ�`�𓾂Ă����ɐF��h��Ԃ�
-	// 3: �c��̃u���b�N�͂͂ݏo���ɂ��Ē��ӂ���K�v���Ȃ��̂ŐS�����Ȃ��F��h��Ԃ�
+	// data->Left, data->Top, data->Width, data->Height で示される矩形に
+	// のみ転送する必要がある。ここで行う処理は以下の通り。
+	// 1: その転送矩形に含まれるモザイクのブロックの範囲を判定する
+	// 2: まず辺境のブロックに対して転送矩形との積矩形を得てそこに色を塗りつぶす
+	// 3: 残りのブロックははみ出しについて注意する必要がないので心おきなく色を塗りつぶす
 
 
-	// �ϐ��̏���
+	// 変数の準備
 	tjs_uint8 *dest;
 	tjs_int destpitch;
 	const tjs_uint8 *src1;
@@ -193,7 +193,7 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 	tjs_int destxofs = data->DestLeft - data->Left;
 	tjs_int destyofs = data->DestTop - data->Top;
 
-	// 1: ���̓]����`�Ɋ܂܂�郂�U�C�N�̃u���b�N�͈̔͂𔻒肷��
+	// 1: その転送矩形に含まれるモザイクのブロックの範囲を判定する
 	int startx, starty;
 	int endx, endy;
 	int bs = CurBlockSize;
@@ -203,7 +203,7 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 	endx = (data->Left + data->Width - 1 - CurOfsX) / bs;
 	endy = (data->Top + data->Height - 1 - CurOfsY) / bs;
 
-	// �h��Ԃ��}�N��
+	// 塗りつぶしマクロ
 #define FILL_LINE(dp, xlen, ylen, d) { \
 			tjs_uint8 *__destp = (tjs_uint8*)(dp); \
 			int __count = ylen; \
@@ -283,7 +283,7 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 		}
 
 
-	// ���ӂ��Ȃ���̓h��Ԃ��}�N��
+	// 注意しながらの塗りつぶしマクロ
 	int bs2 = bs >> 1;
 #define FILL_ONE(x, y) { \
 		tjs_int l = (x) * bs + CurOfsX; \
@@ -309,13 +309,13 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 			FILL_LINE(destp, xlen, ylen, d); \
 		} \
 	}
-		/* �{���͓]�����u���b�N�͈͓̔��ɂ���s�N�Z���̐F�̕��ς������Y�킾����
-		   �d���Ȃ�̂ł��Ȃ� */
+		/* 本来は転送元ブロックの範囲内にあるピクセルの色の平均を取ると綺麗だけど
+		   重くなるのでやらない */
 
-	// 2: �܂��Ӌ��̃u���b�N�ɑ΂��ē]����`�Ƃ̐ϋ�`�𓾂Ă����ɐF��h��Ԃ�
-	// 3: �c��̃u���b�N�͂͂ݏo���ɂ��Ē��ӂ���K�v���Ȃ��̂ŐS�����Ȃ��F��h��Ԃ�
+	// 2: まず辺境のブロックに対して転送矩形との積矩形を得てそこに色を塗りつぶす
+	// 3: 残りのブロックははみ出しについて注意する必要がないので心おきなく色を塗りつぶす
 
-	// ��ԏ�̍s
+	// 一番上の行
 	int y = starty;
 	for(int x = startx; x <= endx; x++)
 	{
@@ -323,13 +323,13 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 	}
 	y++;
 
-	// �Ȃ��قǂ̍s
+	// なかほどの行
 	for(; y < endy; y++)
 	{
-		// ���[
+		// 左端
 		FILL_ONE(startx, y);
 
-		// �Ȃ��ق�
+		// なかほど
 		tjs_int x = startx + 1;
 		tjs_int l = x * bs + CurOfsX;
 		tjs_int t = y * bs + CurOfsY;
@@ -342,7 +342,7 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 
 		for(; x < endx; x++)
 		{
-			// �����̓h��Ԃ���(�͂ݏo�Ă��邩�ǂ�����)�m�[�`�F�b�N�ł�����
+			// ここの塗りつぶしは(はみ出ているかどうかを)ノーチェックでいける
 			tjs_uint32 d = Blend(*src1p, *src2p, BlendRatio);
 			FILL_LINE(destp, bs, bs, d);
 
@@ -351,12 +351,12 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 			destp += bs;
 		}
 
-		// �E�[
+		// 右端
 		FILL_ONE(endx, y);
 	}
 
 
-	// ��ԉ��̍s
+	// 一番下の行
 	if(y <= endy)
 	{
 		for(int x = startx; x <= endx; x++)
@@ -377,23 +377,23 @@ tjs_error TJS_INTF_METHOD tTVPMosaicTransHandler::Process(
 //---------------------------------------------------------------------------
 class tTVPMosaicTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // �Q�ƃJ�E���^
+	tjs_uint RefCount; // 参照カウンタ
 public:
 	tTVPMosaicTransHandlerProvider() { RefCount = 1; }
 	~tTVPMosaicTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler �� AddRef
-		// �Q�ƃJ�E���^���C���N�������g
+		// iTVPBaseTransHandler の AddRef
+		// 参照カウンタをインクリメント
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler �� Release
-		// �Q�ƃJ�E���^���f�N�������g���A0 �ɂȂ�Ȃ�� delete this
+		// iTVPBaseTransHandler の Release
+		// 参照カウンタをデクリメントし、0 になるならば delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -404,7 +404,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ���̃g�����W�V�����̖��O��Ԃ�
+		// このトランジションの名前を返す
 		if(name) *name = TJS_W("mosaic");
 		return TJS_S_OK;
 	}
@@ -428,24 +428,24 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 �� src2 �̃T�C�Y����v���Ă��Ȃ��Ƒʖ�
+			return TJS_E_FAIL; // src1 と src2 のサイズが一致していないと駄目
 
 
-		// �I�v�V�����𓾂�
+		// オプションを得る
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		tjs_int maxblocksize = 30;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time �������w�肳��Ă��Ȃ�
+			return TJS_E_FAIL; // time 属性が指定されていない
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ���܂菬���Ȑ��l���w�肷��Ɩ�肪�N����̂�
+		if(time < 2) time = 2; // あまり小さな数値を指定すると問題が起きるので
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("maxsize"), &tmp)))
 			if(tmp.Type() != tvtVoid) maxblocksize = (tjs_int)tmp;
 
-		// �I�u�W�F�N�g���쐬
+		// オブジェクトを作成
 		*handler = new tTVPMosaicTransHandler(time, src1w, src1h, maxblocksize);
 
 		return TJS_S_OK;
@@ -455,16 +455,16 @@ public:
 //---------------------------------------------------------------------------
 void RegisterMosaicTransHandlerProvider()
 {
-	// TVPAddTransHandlerProvider ���g���ăg�����W�V�����n���h���v���o�C�_��
-	// �o�^����
+	// TVPAddTransHandlerProvider を使ってトランジションハンドラプロバイダを
+	// 登録する
 	MosaicTransHandlerProvider = new tTVPMosaicTransHandlerProvider();
 	TVPAddTransHandlerProvider(MosaicTransHandlerProvider);
 }
 //---------------------------------------------------------------------------
 void UnregisterMosaicTransHandlerProvider()
 {
-	// TVPRemoveTransHandlerProvider ���g���ăg�����W�V�����n���h���v���o�C�_��
-	// �o�^��������
+	// TVPRemoveTransHandlerProvider を使ってトランジションハンドラプロバイダを
+	// 登録抹消する
 	TVPRemoveTransHandlerProvider(MosaicTransHandlerProvider);
 	MosaicTransHandlerProvider->Release();
 }

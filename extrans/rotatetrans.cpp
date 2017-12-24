@@ -10,24 +10,24 @@
 
 //---------------------------------------------------------------------------
 /*
-	Ø‚è‘Ö‚¦Œ³AØ‚è‘Ö‚¦æ‚Ì‰æ‘œ‚ğƒNƒ‹ƒNƒ‹‰ñ‚·Œn‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ÌÀ‘••”B
-	‚±‚±‚É‹Lq‚µ‚Ä‚ ‚é‚·‚×‚Ä‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰‚Í tTVPBaseRotateTransHandler
-	‚ğŒp³‚µ‚Ä‚¢‚éB
+	åˆ‡ã‚Šæ›¿ãˆå…ƒã€åˆ‡ã‚Šæ›¿ãˆå…ˆã®ç”»åƒã‚’ã‚¯ãƒ«ã‚¯ãƒ«å›ã™ç³»ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®å®Ÿè£…éƒ¨ã€‚
+	ã“ã“ã«è¨˜è¿°ã—ã¦ã‚ã‚‹ã™ã¹ã¦ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ã¯ tTVPBaseRotateTransHandler
+	ã‚’ç¶™æ‰¿ã—ã¦ã„ã‚‹ã€‚
 */
 //---------------------------------------------------------------------------
 class tTVPRotateZoomTransHandler : public tTVPBaseRotateTransHandler
 {
-	// ‰æ–Ê‚Ì’†S‚Å‰ñ“]‚µ‚È‚ª‚çƒY[ƒ€ƒCƒ“A‚ ‚é‚¢‚ÍƒY[ƒ€ƒAƒEƒg‚·‚éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-	// (KAG‚Å‚Í)— ‰æ–Ê‚ªí‚É‰ñ“]‚µ‚ÄƒY[ƒ€ƒCƒ“A‚ ‚é‚¢‚ÍƒY[ƒ€ƒAƒEƒg‚·‚é
+	// ç”»é¢ã®ä¸­å¿ƒã§å›è»¢ã—ãªãŒã‚‰ã‚ºãƒ¼ãƒ ã‚¤ãƒ³ã€ã‚ã‚‹ã„ã¯ã‚ºãƒ¼ãƒ ã‚¢ã‚¦ãƒˆã™ã‚‹ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
+	// (KAGã§ã¯)è£ç”»é¢ãŒå¸¸ã«å›è»¢ã—ã¦ã‚ºãƒ¼ãƒ ã‚¤ãƒ³ã€ã‚ã‚‹ã„ã¯ã‚ºãƒ¼ãƒ ã‚¢ã‚¦ãƒˆã™ã‚‹
 
-	double Factor; // ‰ŠúƒY[ƒ€Šg‘å—¦
-	double TargetFactor; // ÅIƒY[ƒ€Šg‘å—¦
-	double Accel; // ‰Á‘¬“x“I‚È“®‚«‚ğs‚í‚¹‚é‚©‚Ç‚¤‚© ( 0 = s‚í‚È‚¢ )
-	double Twist; // ‰Šú‰ñ“]ˆÊ’u
-	double TwistAccel; // ‰ñ“]‚É‰Á‘¬“x“I‚È“®‚«‚ğs‚í‚¹‚é‚©‚Ç‚¤‚©
-	tjs_int CenterX; // ‰ñ“]’†S X ˆÊ’u
-	tjs_int CenterY; // ‰ñ“]’†S Y ˆÊ’u
-	bool FixSrc1; // src1 ‚ğŒÅ’è‚·‚é‚©
+	double Factor; // åˆæœŸã‚ºãƒ¼ãƒ æ‹¡å¤§ç‡
+	double TargetFactor; // æœ€çµ‚ã‚ºãƒ¼ãƒ æ‹¡å¤§ç‡
+	double Accel; // åŠ é€Ÿåº¦çš„ãªå‹•ãã‚’è¡Œã‚ã›ã‚‹ã‹ã©ã†ã‹ ( 0 = è¡Œã‚ãªã„ )
+	double Twist; // åˆæœŸå›è»¢ä½ç½®
+	double TwistAccel; // å›è»¢ã«åŠ é€Ÿåº¦çš„ãªå‹•ãã‚’è¡Œã‚ã›ã‚‹ã‹ã©ã†ã‹
+	tjs_int CenterX; // å›è»¢ä¸­å¿ƒ X ä½ç½®
+	tjs_int CenterY; // å›è»¢ä¸­å¿ƒ Y ä½ç½®
+	bool FixSrc1; // src1 ã‚’å›ºå®šã™ã‚‹ã‹
 
 
 public:
@@ -56,10 +56,10 @@ public:
 
 	void CalcPosition()
 	{
-		// src1, src2 ‚Ì‰æ–ÊˆÊ’u‚ğİ’è‚·‚é
+		// src1, src2 ã®ç”»é¢ä½ç½®ã‚’è¨­å®šã™ã‚‹
 
 		// src1
-		// src1 ‚Íí‚É‰æ–Ê‘S‘ÌŒÅ’è
+		// src1 ã¯å¸¸ã«ç”»é¢å…¨ä½“å›ºå®š
 		tPoint points[3];
 
 		points[0].x = 0; points[0].y = 0;
@@ -73,14 +73,14 @@ public:
 		float tm = zm;
 		if(Accel < 0)
 		{
-			// ãŒ· ( Å‰‚ª“®‚«‚ª‘‚­A™X‚É’x‚­‚È‚é )
+			// ä¸Šå¼¦ ( æœ€åˆãŒå‹•ããŒæ—©ãã€å¾ã€…ã«é…ããªã‚‹ )
 			zm = 1.0 - zm;
 			zm = pow((double)zm, -Accel);
 			zm = 1.0 - zm;
 		}
 		else if(Accel > 0)
 		{
-			// ‰ºŒ· ( Å‰‚Í“®‚«‚ª’x‚­A™X‚É‘‚­‚È‚é )
+			// ä¸‹å¼¦ ( æœ€åˆã¯å‹•ããŒé…ãã€å¾ã€…ã«æ—©ããªã‚‹ )
 			zm = pow((double)zm, Accel);
 		}
 
@@ -91,14 +91,14 @@ public:
 
 		if(TwistAccel < 0)
 		{
-			// ãŒ· ( Å‰‚ª“®‚«‚ª‘‚­A™X‚É’x‚­‚È‚é )
+			// ä¸Šå¼¦ ( æœ€åˆãŒå‹•ããŒæ—©ãã€å¾ã€…ã«é…ããªã‚‹ )
 			tm = 1.0 - tm;
 			tm = pow((double)tm, -TwistAccel);
 			tm = 1.0 - tm;
 		}
 		else if(TwistAccel > 0)
 		{
-			// ‰ºŒ· ( Å‰‚Í“®‚«‚ª’x‚­A™X‚É‘‚­‚È‚é )
+			// ä¸‹å¼¦ ( æœ€åˆã¯å‹•ããŒé…ãã€å¾ã€…ã«æ—©ããªã‚‹ )
 			tm = pow((double)tm, TwistAccel);
 		}
 
@@ -121,23 +121,23 @@ public:
 //---------------------------------------------------------------------------
 class tTVPRotateZoomTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_uint RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 public:
 	tTVPRotateZoomTransHandlerProvider() { RefCount = 1; }
 	~tTVPRotateZoomTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -148,7 +148,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì–¼‘O‚ğ•Ô‚·
+		// ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®åå‰ã‚’è¿”ã™
 		if(name) *name = TJS_W("rotatezoom");
 		return TJS_S_OK;
 	}
@@ -172,10 +172,10 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 ‚Æ src2 ‚ÌƒTƒCƒY‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+			return TJS_E_FAIL; // src1 ã¨ src2 ã®ã‚µã‚¤ã‚ºãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
 
-		// ƒIƒvƒVƒ‡ƒ“‚ğ“¾‚é
+		// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		double factor = 1;
@@ -186,10 +186,10 @@ public:
 		tjs_int centery = src1h / 2;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time ‘®«‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢
+			return TJS_E_FAIL; // time å±æ€§ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ‚ ‚Ü‚è¬‚³‚È”’l‚ğw’è‚·‚é‚Æ–â‘è‚ª‹N‚«‚é‚Ì‚Å
+		if(time < 2) time = 2; // ã‚ã¾ã‚Šå°ã•ãªæ•°å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨å•é¡ŒãŒèµ·ãã‚‹ã®ã§
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("factor"), &tmp)))
 			if(tmp.Type() != tvtVoid) factor = (double)tmp;
@@ -209,7 +209,7 @@ public:
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("centery"), &tmp)))
 			if(tmp.Type() != tvtVoid) centery = (tjs_int)tmp;
 
-		// ƒIƒuƒWƒFƒNƒg‚ğì¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 		*handler = new tTVPRotateZoomTransHandler(time,
 			src1w, src1h,
 			factor, 1, accel, twist, twistaccel, centerx, centery, true);
@@ -221,23 +221,23 @@ public:
 //---------------------------------------------------------------------------
 class tTVPRotateVanishTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_uint RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 public:
 	tTVPRotateVanishTransHandlerProvider() { RefCount = 1; }
 	~tTVPRotateVanishTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -248,7 +248,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì–¼‘O‚ğ•Ô‚·
+		// ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®åå‰ã‚’è¿”ã™
 		if(name) *name = TJS_W("rotatevanish");
 		return TJS_S_OK;
 	}
@@ -272,10 +272,10 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 ‚Æ src2 ‚ÌƒTƒCƒY‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+			return TJS_E_FAIL; // src1 ã¨ src2 ã®ã‚µã‚¤ã‚ºãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
 
-		// ƒIƒvƒVƒ‡ƒ“‚ğ“¾‚é
+		// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		double accel = 2;
@@ -285,10 +285,10 @@ public:
 		tjs_int centery = src1h / 2;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time ‘®«‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢
+			return TJS_E_FAIL; // time å±æ€§ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ‚ ‚Ü‚è¬‚³‚È”’l‚ğw’è‚·‚é‚Æ–â‘è‚ª‹N‚«‚é‚Ì‚Å
+		if(time < 2) time = 2; // ã‚ã¾ã‚Šå°ã•ãªæ•°å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨å•é¡ŒãŒèµ·ãã‚‹ã®ã§
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("accel"), &tmp)))
 			if(tmp.Type() != tvtVoid) accel = (double)tmp;
@@ -305,7 +305,7 @@ public:
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("centery"), &tmp)))
 			if(tmp.Type() != tvtVoid) centery = (tjs_int)tmp;
 
-		// ƒIƒuƒWƒFƒNƒg‚ğì¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 		*handler = new tTVPRotateZoomTransHandler(time,
 			src1w, src1h,
 			1, 0, accel, twist, twistaccel, centerx, centery, false);
@@ -317,8 +317,8 @@ public:
 //---------------------------------------------------------------------------
 class tTVPRotateSwapTransHandler : public tTVPBaseRotateTransHandler
 {
-	// •\‰æ–Ê‚ª‰ñ“]‚µ‚È‚ª‚ç‰“‚´‚©‚èA— ‰æ–Ê‚ª‰ñ“]‚µ‚È‚ª‚ç‹ßŠñ‚éƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“
-	float Twist; // ‰ñ“]”
+	// è¡¨ç”»é¢ãŒå›è»¢ã—ãªãŒã‚‰é ã–ã‹ã‚Šã€è£ç”»é¢ãŒå›è»¢ã—ãªãŒã‚‰è¿‘å¯„ã‚‹ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³
+	float Twist; // å›è»¢æ•°
 
 public:
 	tTVPRotateSwapTransHandler(tjs_uint64 time,
@@ -332,7 +332,7 @@ public:
 
 	void CalcPosition()
 	{
-		// src1, src2 ‚Ì‰æ–ÊˆÊ’u‚ğİ’è‚·‚é
+		// src1, src2 ã®ç”»é¢ä½ç½®ã‚’è¨­å®šã™ã‚‹
 		tPoint points[3];
 		float rad;
 		tjs_int cx, cy;
@@ -393,23 +393,23 @@ public:
 //---------------------------------------------------------------------------
 class tTVPRotateSwapTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_uint RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 public:
 	tTVPRotateSwapTransHandlerProvider() { RefCount = 1; }
 	~tTVPRotateSwapTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -420,7 +420,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ‚±‚Ìƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚Ì–¼‘O‚ğ•Ô‚·
+		// ã“ã®ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã®åå‰ã‚’è¿”ã™
 		if(name) *name = TJS_W("rotateswap");
 		return TJS_S_OK;
 	}
@@ -444,20 +444,20 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 ‚Æ src2 ‚ÌƒTƒCƒY‚ªˆê’v‚µ‚Ä‚¢‚È‚¢‚Æ‘Ê–Ú
+			return TJS_E_FAIL; // src1 ã¨ src2 ã®ã‚µã‚¤ã‚ºãŒä¸€è‡´ã—ã¦ã„ãªã„ã¨é§„ç›®
 
 
-		// ƒIƒvƒVƒ‡ƒ“‚ğ“¾‚é
+		// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		tjs_uint32 bgcolor = 0;
 		double twist = 1;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time ‘®«‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢
+			return TJS_E_FAIL; // time å±æ€§ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ‚ ‚Ü‚è¬‚³‚È”’l‚ğw’è‚·‚é‚Æ–â‘è‚ª‹N‚«‚é‚Ì‚Å
+		if(time < 2) time = 2; // ã‚ã¾ã‚Šå°ã•ãªæ•°å€¤ã‚’æŒ‡å®šã™ã‚‹ã¨å•é¡ŒãŒèµ·ãã‚‹ã®ã§
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("bgcolor"), &tmp)))
 			if(tmp.Type() != tvtVoid) bgcolor = (tjs_int)tmp;
@@ -465,7 +465,7 @@ public:
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("twist"), &tmp)))
 			if(tmp.Type() != tvtVoid) twist = (double)tmp;
 
-		// ƒIƒuƒWƒFƒNƒg‚ğì¬
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 		*handler = new tTVPRotateSwapTransHandler(time,
 			src1w, src1h, bgcolor, twist);
 
@@ -482,8 +482,8 @@ public:
 //---------------------------------------------------------------------------
 void RegisterRotateTransHandlerProvider()
 {
-	// TVPAddTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^‚·‚é
+	// TVPAddTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²ã™ã‚‹
 	RotateZoomTransHandlerProvider = new tTVPRotateZoomTransHandlerProvider();
 	TVPAddTransHandlerProvider(RotateZoomTransHandlerProvider);
 
@@ -496,8 +496,8 @@ void RegisterRotateTransHandlerProvider()
 //---------------------------------------------------------------------------
 void UnregisterRotateTransHandlerProvider()
 {
-	// TVPRemoveTransHandlerProvider ‚ğg‚Á‚Äƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰ƒvƒƒoƒCƒ_‚ğ
-	// “o˜^–•Á‚·‚é
+	// TVPRemoveTransHandlerProvider ã‚’ä½¿ã£ã¦ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©ãƒ—ãƒ­ãƒã‚¤ãƒ€ã‚’
+	// ç™»éŒ²æŠ¹æ¶ˆã™ã‚‹
 	TVPRemoveTransHandlerProvider(RotateZoomTransHandlerProvider);
 	RotateZoomTransHandlerProvider->Release();
 

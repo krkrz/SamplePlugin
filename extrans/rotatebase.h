@@ -39,24 +39,24 @@ struct tRotateDrawData
 //---------------------------------------------------------------------------
 class tTVPBaseRotateTransHandler : public iTVPDivisibleTransHandler
 {
-	//	‰ñ“]‚ğs‚¤ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“ƒnƒ“ƒhƒ‰Šî’êƒNƒ‰ƒX‚ÌÀ‘•
+	//	å›è»¢ã‚’è¡Œã†ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ãƒãƒ³ãƒ‰ãƒ©åŸºåº•ã‚¯ãƒ©ã‚¹ã®å®Ÿè£…
 
-	tjs_int RefCount; // QÆƒJƒEƒ“ƒ^
+	tjs_int RefCount; // å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿
 		/*
-			iTVPDivisibleTransHandler ‚Í QÆƒJƒEƒ“ƒ^‚É‚æ‚éŠÇ—‚ğs‚¤
+			iTVPDivisibleTransHandler ã¯ å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã«ã‚ˆã‚‹ç®¡ç†ã‚’è¡Œã†
 		*/
 
 protected:
-	tjs_uint64 StartTick; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠJn‚µ‚½ tick count
-	tjs_uint64 Time; // ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚É—v‚·‚éŠÔ
-	tjs_uint64 CurTime; // Œ»İ‚ÌŠÔ
-	tjs_int Width; // ˆ—‚·‚é‰æ‘œ‚Ì•
-	tjs_int Height; // ˆ—‚·‚é‰æ‘œ‚Ì‚‚³
-	tjs_int BGColor; // ”wŒiF
-	tjs_int Phase; // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒtƒF[ƒY
-	bool First; // ˆê”ÔÅ‰‚ÌŒÄ‚Ño‚µ‚©‚Ç‚¤‚©
+	tjs_uint64 StartTick; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã—ãŸ tick count
+	tjs_uint64 Time; // ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã«è¦ã™ã‚‹æ™‚é–“
+	tjs_uint64 CurTime; // ç¾åœ¨ã®æ™‚é–“
+	tjs_int Width; // å‡¦ç†ã™ã‚‹ç”»åƒã®å¹…
+	tjs_int Height; // å‡¦ç†ã™ã‚‹ç”»åƒã®é«˜ã•
+	tjs_int BGColor; // èƒŒæ™¯è‰²
+	tjs_int Phase; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ•ã‚§ãƒ¼ã‚º
+	bool First; // ä¸€ç•ªæœ€åˆã®å‘¼ã³å‡ºã—ã‹ã©ã†ã‹
 
-	tRotateDrawData * DrawData; // •`‰æ—pƒf[ƒ^
+	tRotateDrawData * DrawData; // æç”»ç”¨ãƒ‡ãƒ¼ã‚¿
 
 public:
 	tTVPBaseRotateTransHandler(tjs_uint64 time,
@@ -66,16 +66,16 @@ public:
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler ‚Ì AddRef
-		// QÆƒJƒEƒ“ƒ^‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+		// iTVPBaseTransHandler ã® AddRef
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler ‚Ì Release
-		// QÆƒJƒEƒ“ƒ^‚ğƒfƒNƒŠƒƒ“ƒg‚µA0 ‚É‚È‚é‚È‚ç‚Î delete this
+		// iTVPBaseTransHandler ã® Release
+		// å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿ã‚’ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆã—ã€0 ã«ãªã‚‹ãªã‚‰ã° delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -88,8 +88,8 @@ public:
 			/*in*/iTVPSimpleOptionProvider *options // option provider
 		)
 	{
-		// iTVPBaseTransHandler ‚Ì SetOption
-		// ‚Æ‚­‚É‚â‚é‚±‚Æ‚È‚µ
+		// iTVPBaseTransHandler ã® SetOption
+		// ã¨ãã«ã‚„ã‚‹ã“ã¨ãªã—
 		return TJS_S_OK;
 	}
 
@@ -105,7 +105,7 @@ public:
 			iTVPScanLineProvider * src1,
 			iTVPScanLineProvider * src2)
 	{
-		*dest = src2; // í‚ÉÅI‰æ‘œ‚Í src2
+		*dest = src2; // å¸¸ã«æœ€çµ‚ç”»åƒã¯ src2
 		return TJS_S_OK;
 	}
 
@@ -115,8 +115,8 @@ protected:
 	void AddSource(const tPoint *points, tjs_int type);
 
 	virtual void CalcPosition() = 0;
-		// ‹éŒ`‚ÌˆÊ’u‚ğŒvZ‚·‚é
-		// ‰ºˆÊƒNƒ‰ƒX‚ÅÀ‘•‚·‚é‚±‚Æ
+		// çŸ©å½¢ã®ä½ç½®ã‚’è¨ˆç®—ã™ã‚‹
+		// ä¸‹ä½ã‚¯ãƒ©ã‚¹ã§å®Ÿè£…ã™ã‚‹ã“ã¨
 };
 //---------------------------------------------------------------------------
 #endif

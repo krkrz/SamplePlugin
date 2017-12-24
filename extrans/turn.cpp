@@ -10,16 +10,16 @@
 
 //---------------------------------------------------------------------------
 /*
-	'turn' �g�����W�V����
-	�����`�̏����ȃ^�C�����Ђ�����Ԃ��悤�ɂ��Đ؂�ւ��g�����W�V����
-	���낢�낪��΂��Ă݂������܂�����]���Ă��镵�͋C���o�Ă��Ȃ�
+	'turn' トランジション
+	正方形の小さなタイルをひっくり返すようにして切り替わるトランジション
+	いろいろがんばってみたがいまいち回転している雰囲気が出ていない
 
-	���̃g�����W�V�����͓]���悪���������Ă����(�v����Ƀg�����W�V�������s��
-	���C���� type �� ltCoverRect �ȊO�̏ꍇ)�A����ɓ��ߏ��������ł��Ȃ��̂�
-	����
+	このトランジションは転送先がαを持っていると(要するにトランジションを行う
+	レイヤの type が ltCoverRect 以外の場合)、正常に透過情報を処理できないので
+	注意
 */
 //---------------------------------------------------------------------------
-// �e�J��
+// テカり
 static const tjs_int gloss[64] =
 	{
 	   0,   0,   0,   0,  16,  48,  80, 128,
@@ -32,26 +32,26 @@ static const tjs_int gloss[64] =
 	   0,   0,   0,   0,   0,   0,   0,   0,
 	   };
 #define TURN_WIDTH_FACTOR 2
-	// 1 ��ݒ肷��� 2 ��ݒ肵���Ƃ�������x�ɉ�]����u���b�N�̐��������Ȃ�
+	// 1 を設定すると 2 を設定したときよりも一度に回転するブロックの数が多くなる
 //---------------------------------------------------------------------------
 class tTVPTurnTransHandler : public iTVPDivisibleTransHandler
 {
-	//	'���U�C�N' �g�����W�V�����n���h���N���X�̎���
+	//	'モザイク' トランジションハンドラクラスの実装
 
-	tjs_int RefCount; // �Q�ƃJ�E���^
+	tjs_int RefCount; // 参照カウンタ
 		/*
-			iTVPDivisibleTransHandler �� �Q�ƃJ�E���^�ɂ��Ǘ����s��
+			iTVPDivisibleTransHandler は 参照カウンタによる管理を行う
 		*/
 
 protected:
-	tjs_uint64 StartTick; // �g�����W�V�������J�n���� tick count
-	tjs_uint64 Time; // �g�����W�V�����ɗv���鎞��
-	tjs_uint64 CurTime; // ���݂̎���
-	tjs_int Width; // ��������摜�̕�
-	tjs_int Height; // ��������摜�̍���
-	tjs_int BGColor; // �w�i�F
-	tjs_int Phase; // �A�j���[�V�����̃t�F�[�Y
-	bool First; // ��ԍŏ��̌Ăяo�����ǂ���
+	tjs_uint64 StartTick; // トランジションを開始した tick count
+	tjs_uint64 Time; // トランジションに要する時間
+	tjs_uint64 CurTime; // 現在の時間
+	tjs_int Width; // 処理する画像の幅
+	tjs_int Height; // 処理する画像の高さ
+	tjs_int BGColor; // 背景色
+	tjs_int Phase; // アニメーションのフェーズ
+	bool First; // 一番最初の呼び出しかどうか
 
 public:
 	tTVPTurnTransHandler(tjs_uint64 time, tjs_int width, tjs_int height, tjs_uint32 bgcolor)
@@ -72,16 +72,16 @@ public:
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler �� AddRef
-		// �Q�ƃJ�E���^���C���N�������g
+		// iTVPBaseTransHandler の AddRef
+		// 参照カウンタをインクリメント
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler �� Release
-		// �Q�ƃJ�E���^���f�N�������g���A0 �ɂȂ�Ȃ�� delete this
+		// iTVPBaseTransHandler の Release
+		// 参照カウンタをデクリメントし、0 になるならば delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -94,8 +94,8 @@ public:
 			/*in*/iTVPSimpleOptionProvider *options // option provider
 		)
 	{
-		// iTVPBaseTransHandler �� SetOption
-		// �Ƃ��ɂ�邱�ƂȂ�
+		// iTVPBaseTransHandler の SetOption
+		// とくにやることなし
 		return TJS_S_OK;
 	}
 
@@ -111,29 +111,29 @@ public:
 			iTVPScanLineProvider * src1,
 			iTVPScanLineProvider * src2)
 	{
-		*dest = src2; // ��ɍŏI�摜�� src2
+		*dest = src2; // 常に最終画像は src2
 		return TJS_S_OK;
 	}
 };
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::StartProcess(tjs_uint64 tick)
 {
-	// �g�����W�V�����̉�ʍX�V��񂲂ƂɌĂ΂��
+	// トランジションの画面更新一回ごとに呼ばれる
 
-	// �g�����W�V�����̉�ʍX�V���ɂ��A�܂��ŏ��� StartProcess ���Ă΂��
-	// ���̂��� Process ��������Ă΂�� ( �̈�𕪊��������Ă���ꍇ )
-	// �Ō�� EndProcess ���Ă΂��
+	// トランジションの画面更新一回につき、まず最初に StartProcess が呼ばれる
+	// そのあと Process が複数回呼ばれる ( 領域を分割処理している場合 )
+	// 最後に EndProcess が呼ばれる
 
 	if(First)
 	{
-		// �ŏ��̎��s
+		// 最初の実行
 		First = false;
 		StartTick = tick;
 	}
 
-	// �摜���Z�ɕK�v�ȃp�����[�^���v�Z
+	// 画像演算に必要なパラメータを計算
 
-	// ���������]���n�߁A�Ō�ɉE�オ��]���I����܂ŏ���������
+	// 左下から回転し始め、最後に右上が回転を終えるまで処理をする
 
 
 	CurTime = (tick - StartTick);
@@ -149,9 +149,9 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::StartProcess(tjs_uint64 tick)
 //---------------------------------------------------------------------------
 tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::EndProcess()
 {
-	// �g�����W�V�����̉�ʍX�V��񕪂��I��邲�ƂɌĂ΂��
+	// トランジションの画面更新一回分が終わるごとに呼ばれる
 
-	if(CurTime == Time) return TJS_S_FALSE; // �g�����W�V�����I��
+	if(CurTime == Time) return TJS_S_FALSE; // トランジション終了
 
 	return TJS_S_TRUE;
 }
@@ -159,25 +159,25 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::EndProcess()
 tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 			tTVPDivisibleData *data)
 {
-	// �g�����W�V�����̊e�̈悲�ƂɌĂ΂��
-	// �g���g���͉�ʂ��X�V����Ƃ��ɂ������̗̈�ɕ������Ȃ��珈�����s���̂�
-	// ���̃��\�b�h�͒ʏ�A��ʍX�V���ɂ�������Ă΂��
+	// トランジションの各領域ごとに呼ばれる
+	// 吉里吉里は画面を更新するときにいくつかの領域に分割しながら処理を行うので
+	// このメソッドは通常、画面更新一回につき複数回呼ばれる
 
-	// data �ɂ͗̈��摜�Ɋւ����񂪓����Ă���
+	// data には領域や画像に関する情報が入っている
 
-	// data->Left, data->Top, data->Width, data->Height �Ŏ�������`��
-	// �̂ݓ]������K�v������B�����ōs�������� '���U�C�N' �̃g�����W�V����
-	// �̏����Ɏ��Ă��āA�ȉ��̒ʂ�B
-	// 1: ���̓]����`�Ɋ܂܂��u���b�N�͈̔͂𔻒肷��
-	// 2: ��ʈ�ԉ��̃u���b�N�̓A�N�Z�X�I�[�o�[�����ɋC�����ē]������
-	// 3: ���͈̔͂̍��[�ƉE�[�̃u���b�N�́A�㉺�̃N���b�s���O�ɉ����A
-	//    ���E�̃N���b�s���O���s���Ȃ���]������
-	// 4: ����ȊO�̃u���b�N�͏㉺�̃N���b�s���O�݂̂��s���Ȃ���]������
-	// ���Ȃ݂ɋg���g���͒ʏ� 8 ���C�����Ƃ̉��ɍג����̈���ォ�珇��
-	// �w�肵�Ă���B
-	// �u���b�N�T�C�Y�� 64x64 �Œ�B
+	// data->Left, data->Top, data->Width, data->Height で示される矩形に
+	// のみ転送する必要がある。ここで行う処理は 'モザイク' のトランジション
+	// の処理に似ていて、以下の通り。
+	// 1: その転送矩形に含まれるブロックの範囲を判定する
+	// 2: 画面一番下のブロックはアクセスオーバーランに気をつけて転送する
+	// 3: その範囲の左端と右端のブロックは、上下のクリッピングに加え、
+	//    左右のクリッピングを行いながら転送する
+	// 4: それ以外のブロックは上下のクリッピングのみを行いながら転送する
+	// ちなみに吉里吉里は通常 8 ラインごとの横に細長い領域を上から順に
+	// 指定してくる。
+	// ブロックサイズは 64x64 固定。
 
-	// �ϐ��̏���
+	// 変数の準備
 	tjs_uint8 *dest;
 	tjs_int destpitch;
 	const tjs_uint8 *src1;
@@ -200,7 +200,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 	tjs_int destxofs = data->DestLeft - data->Left;
 	tjs_int destyofs = data->DestTop - data->Top;
 
-	// 1: ���̓]����`�Ɋ܂܂�郂�U�C�N�̃u���b�N�͈̔͂𔻒肷��
+	// 1: その転送矩形に含まれるモザイクのブロックの範囲を判定する
 	int startx, starty;
 	int endx, endy;
 
@@ -209,14 +209,14 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 	endx = (data->Left + data->Width - 1) / 64;
 	endy = (data->Top + data->Height - 1) / 64;
 
-	// 2: ��ʈ�ԉ��̃u���b�N�̓A�N�Z�X�I�[�o�[�����ɋC�����ē]������
-	// 3: ���͈̔͂̍��[�ƉE�[�̃u���b�N�́A�㉺�̃N���b�s���O�ɉ����A
-	//    ���E�̃N���b�s���O���s���Ȃ���]������
-	// 4: ����ȊO�̃u���b�N�͏㉺�̃N���b�s���O�݂̂��s���Ȃ���]������
+	// 2: 画面一番下のブロックはアクセスオーバーランに気をつけて転送する
+	// 3: その範囲の左端と右端のブロックは、上下のクリッピングに加え、
+	//    左右のクリッピングを行いながら転送する
+	// 4: それ以外のブロックは上下のクリッピングのみを行いながら転送する
 
 	for(int y = starty; y <= endy; y++)
 	{
-		// �����悤�Ȃ̂�������o�Ă��ĉ������ǁA����
+		// 同じようなのが何回も出てきて汚いけど、勘弁
 
 		for(int x = startx; x <= endx; x++)
 		{
@@ -226,8 +226,8 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 			tjs_int gl = gloss[phase];
 			if(y * 64 + 64 >= Height || x == startx || x == endx)
 			{
-				// �������A�N�Z�X�I�[�o�[�����̉\��������
-				// ���邢�� ���[ �E�[�̃u���b�N
+				// 下側がアクセスオーバーランの可能性がある
+				// あるいは 左端 右端のブロック
 				tjs_int l = (x) * 64;
 				tjs_int t = (y) * 64;
 				tjs_int r = l + 64;
@@ -235,13 +235,13 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 				if(Clip(l, r, data->Left, data->Left + data->Width) &&
 					Clip(t, b, data->Top, data->Top + data->Height))
 				{
-					// l, t, r, b �͊��ɃN���b�v���ꂽ�̈��\���Ă���
+					// l, t, r, b は既にクリップされた領域を表している
 
-					// phase ������
+					// phase を決定
 
 					if(phase == 0)
 					{
-						// ���S�� src1
+						// 完全に src1
 						tjs_uint8 * dp = dest + (t + destyofs) * destpitch +
 							(l + destxofs) * sizeof(tjs_uint32);
 						const tjs_uint8 * sp = src1 + t * src1pitch +
@@ -253,7 +253,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 					}
 					else if(phase == 63)
 					{
-						// ���S�� src2
+						// 完全に src2
 						tjs_uint8 * dp = dest + (t + destyofs) * destpitch +
 							(l + destxofs) * sizeof(tjs_uint32);
 						const tjs_uint8 * sp = src2 + t * src2pitch +
@@ -265,7 +265,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 					}
 					else
 					{
-						// �]���p�����[�^�ƃ\�[�X������
+						// 転送パラメータとソースを決定
 						const tTurnTransParams *params = TurnTransParams[phase];
 						const tjs_uint8 * src;
 						tjs_int srcpitch;
@@ -280,9 +280,9 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 							srcpitch = src2pitch;
 						}
 
-						tjs_int line = t - y * 64;  // �J�n���C�� ( 0 .. 63 )
-						tjs_int start = l - x * 64; // ���[�̐؂����镔�� ( 0 .. 63 )
-						tjs_int end = r - x * 64; // �E�[
+						tjs_int line = t - y * 64;  // 開始ライン ( 0 .. 63 )
+						tjs_int start = l - x * 64; // 左端の切り取られる部分 ( 0 .. 63 )
+						tjs_int end = r - x * 64; // 右端
 
 						params += line;
 
@@ -297,25 +297,25 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 						{
 							tjs_int fl, fr;
 
-							// ���̔w�i
+							// 左の背景
 							fl = 0;
 							fr = params->start;
 							if(Clip(fl, fr, start, end))
 							{
-								// fl-fr ��w�i�F�œh��Ԃ�
+								// fl-fr を背景色で塗りつぶす
 								TVPFillARGB((tjs_uint32*)dp + fl, fr - fl, BGColor);
 							}
 
-							// �E�̔w�i
+							// 右の背景
 							fl = params->start + params->len;
 							fr = 64;
 							if(Clip(fl, fr, start, end))
 							{
-								// fl-fr ��w�i�F�œh��Ԃ�
+								// fl-fr を背景色で塗りつぶす
 								TVPFillARGB((tjs_uint32*)dp + fl, fr - fl, BGColor);
 							}
 
-							// �ό`�]��
+							// 変形転送
 							fl = params->start;
 							fr = params->start + params->len;
 							if(Clip(fl, fr, start, end))
@@ -366,20 +366,20 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 			}
 			else
 			{
-				// �E�[�A���[�A�A�N�Z�X�I�[�o�[�����ɂ͒��ӂ����ɓ]��
+				// 右端、左端、アクセスオーバーランには注意せずに転送
 				tjs_int l = (x) * 64;
 				tjs_int t = (y) * 64;
 				tjs_int r = l + 64;
 				tjs_int b = t + 64;
 				if(Clip(t, b, data->Top, data->Top + data->Height))
 				{
-					// l, t, r, b �͊��ɃN���b�v���ꂽ�̈��\���Ă���
+					// l, t, r, b は既にクリップされた領域を表している
 
-					// phase ������
+					// phase を決定
 
 					if(phase == 0)
 					{
-						// ���S�� src1
+						// 完全に src1
 						tjs_uint8 * dp = dest + (t + destyofs) * destpitch +
 							(l + destxofs) * sizeof(tjs_uint32);
 						const tjs_uint8 * sp = src1 + t * src1pitch +
@@ -391,7 +391,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 					}
 					else if(phase == 63)
 					{
-						// ���S�� src2
+						// 完全に src2
 						tjs_uint8 * dp = dest + (t + destyofs) * destpitch +
 							(l + destxofs) * sizeof(tjs_uint32);
 						const tjs_uint8 * sp = src2 + t * src2pitch +
@@ -403,7 +403,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 					}
 					else
 					{
-						// �]���p�����[�^�ƃ\�[�X������
+						// 転送パラメータとソースを決定
 						const tTurnTransParams *params = TurnTransParams[phase];
 						const tjs_uint8 * src;
 						tjs_int srcpitch;
@@ -418,7 +418,7 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 							srcpitch = src2pitch;
 						}
 
-						tjs_int line = t - y * 64;  // �J�n���C�� ( 0 .. 63 )
+						tjs_int line = t - y * 64;  // 開始ライン ( 0 .. 63 )
 
 						params += line;
 
@@ -433,16 +433,16 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 						{
 							tjs_int fl, fr;
 
-							// ���̔w�i
-							// 0-params->start ��w�i�F�œh��Ԃ�
+							// 左の背景
+							// 0-params->start を背景色で塗りつぶす
 							TVPFillARGB((tjs_uint32*)dp + 0, params->start, BGColor);
 
-							// �E�̔w�i
+							// 右の背景
 							fl = params->start + params->len;
-							// fl-64 ��w�i�F�œh��Ԃ�
+							// fl-64 を背景色で塗りつぶす
 							TVPFillARGB((tjs_uint32*)dp + fl, 64 - fl, BGColor);
 
-							// �ό`�]��
+							// 変形転送
 							fl = params->start;
 							fr = params->start + params->len;
 							tjs_int sx = params->sx;
@@ -495,23 +495,23 @@ tjs_error TJS_INTF_METHOD tTVPTurnTransHandler::Process(
 //---------------------------------------------------------------------------
 class tTVPTurnTransHandlerProvider : public iTVPTransHandlerProvider
 {
-	tjs_uint RefCount; // �Q�ƃJ�E���^
+	tjs_uint RefCount; // 参照カウンタ
 public:
 	tTVPTurnTransHandlerProvider() { RefCount = 1; }
 	~tTVPTurnTransHandlerProvider() {; }
 
 	tjs_error TJS_INTF_METHOD AddRef()
 	{
-		// iTVPBaseTransHandler �� AddRef
-		// �Q�ƃJ�E���^���C���N�������g
+		// iTVPBaseTransHandler の AddRef
+		// 参照カウンタをインクリメント
 		RefCount ++;
 		return TJS_S_OK;
 	}
 
 	tjs_error TJS_INTF_METHOD Release()
 	{
-		// iTVPBaseTransHandler �� Release
-		// �Q�ƃJ�E���^���f�N�������g���A0 �ɂȂ�Ȃ�� delete this
+		// iTVPBaseTransHandler の Release
+		// 参照カウンタをデクリメントし、0 になるならば delete this
 		if(RefCount == 1)
 			delete this;
 		else
@@ -522,7 +522,7 @@ public:
 	tjs_error TJS_INTF_METHOD GetName(
 			/*out*/const tjs_char ** name)
 	{
-		// ���̃g�����W�V�����̖��O��Ԃ�
+		// このトランジションの名前を返す
 		if(name) *name = TJS_W("turn");
 		return TJS_S_OK;
 	}
@@ -546,24 +546,24 @@ public:
 		if(!options) return TJS_E_FAIL;
 
 		if(src1w != src2w || src1h != src2h)
-			return TJS_E_FAIL; // src1 �� src2 �̃T�C�Y����v���Ă��Ȃ��Ƒʖ�
+			return TJS_E_FAIL; // src1 と src2 のサイズが一致していないと駄目
 
 
-		// �I�v�V�����𓾂�
+		// オプションを得る
 		tTJSVariant tmp;
 		tjs_uint64 time;
 		tjs_uint32 bgcolor = 0;
 
 		if(TJS_FAILED(options->GetValue(TJS_W("time"), &tmp)))
-			return TJS_E_FAIL; // time �������w�肳��Ă��Ȃ�
+			return TJS_E_FAIL; // time 属性が指定されていない
 		if(tmp.Type() == tvtVoid) return TJS_E_FAIL;
 		time = (tjs_int64)tmp;
-		if(time < 2) time = 2; // ���܂菬���Ȑ��l���w�肷��Ɩ�肪�N����̂�
+		if(time < 2) time = 2; // あまり小さな数値を指定すると問題が起きるので
 
 		if(TJS_SUCCEEDED(options->GetValue(TJS_W("bgcolor"), &tmp)))
 		if(tmp.Type() != tvtVoid) bgcolor = (tjs_int)tmp;
 
-		// �I�u�W�F�N�g���쐬
+		// オブジェクトを作成
 		*handler = new tTVPTurnTransHandler(time, src1w, src1h, bgcolor);
 
 		return TJS_S_OK;
@@ -573,16 +573,16 @@ public:
 //---------------------------------------------------------------------------
 void RegisterTurnTransHandlerProvider()
 {
-	// TVPAddTransHandlerProvider ���g���ăg�����W�V�����n���h���v���o�C�_��
-	// �o�^����
+	// TVPAddTransHandlerProvider を使ってトランジションハンドラプロバイダを
+	// 登録する
 	TurnTransHandlerProvider = new tTVPTurnTransHandlerProvider();
 	TVPAddTransHandlerProvider(TurnTransHandlerProvider);
 }
 //---------------------------------------------------------------------------
 void UnregisterTurnTransHandlerProvider()
 {
-	// TVPRemoveTransHandlerProvider ���g���ăg�����W�V�����n���h���v���o�C�_��
-	// �o�^��������
+	// TVPRemoveTransHandlerProvider を使ってトランジションハンドラプロバイダを
+	// 登録抹消する
 	TVPRemoveTransHandlerProvider(TurnTransHandlerProvider);
 	TurnTransHandlerProvider->Release();
 }

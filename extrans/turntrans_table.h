@@ -1,5 +1,5 @@
-/* 'turn' ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“—p•ÏŒ`•ÏŠ·ƒe[ƒuƒ‹ */
-/* ‚±‚Ìƒtƒ@ƒCƒ‹‚Í mkturntranstable.pl ‚É‚æ‚èì¬‚³‚ê‚Ü‚µ‚½ */
+/* 'turn' ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ç”¨å¤‰å½¢å¤‰æ›ãƒ†ãƒ¼ãƒ–ãƒ« */
+/* ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ mkturntranstable.pl ã«ã‚ˆã‚Šä½œæˆã•ã‚Œã¾ã—ãŸ */
 
 #ifndef turntrans_table_H
 #define turntrans_table_H
